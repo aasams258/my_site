@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/drawing.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+  <h1>Digit Recognizer</h1>
+  <p>Write a digit 0-9, in the box below and click submit.</p>
+  
+  <div id="container">
+    <canvas id="imageView" width="84" height="84" style="border: 1px solid #000">
+      <p>Unfortunately, your browser isn't currently unsupported.</p>
+    </canvas>
+  </div>
+  <! addEventListener on an ID instead of func inside tag>
+  <button onclick="clearCanvas()">Erase</button>
+  <!-- Can probably make this a flask form then use a javascript function to pass in the canvas values-->
+  <button onclick="submitCanvas()">Submit</button>
+  <p id="response"></p>
+{% endblock %}
