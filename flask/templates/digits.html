@@ -6,7 +6,8 @@
 
 {% block content %}
   <h1>Digit Recognizer</h1>
-  <p>Write a digit 0-9, in the box below and click submit.</p>
+  <p> This project uses a Convolutional Neural Network programmed in Tensorflow to recognize a digit drawn in an HTML5 canvas. Give it a try.</p>
+  <p> Write a digit 0-9, in the box below and click submit.</p>
   
   <div id="container">
     <canvas id="imageView" width="84" height="84" style="border: 1px solid #000">
@@ -18,4 +19,5 @@
   <!-- Can probably make this a flask form then use a javascript function to pass in the canvas values-->
   <button onclick="submitCanvas()">Submit</button>
   <p id="response"></p>
+  <p> Button to mark if it worked. </p>
 {% endblock %}

@@ -42,6 +42,8 @@ def draw():
         #pred = task.make_prediction(b_w)
         return jsonify(prediction=b_w)
     return render_template('digits.html')
+    # Potentially add another POST where we add the user corrected result to an
+    # "ON DEMAND" First Generation MYSQL instance. Or just regular DB hosted in a bucket?
 
 @app.errorhandler(500)
 def server_error(e):
