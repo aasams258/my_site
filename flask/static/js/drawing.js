@@ -108,17 +108,18 @@ function canvasHandler (ev) {
 function clearCanvas() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   document.getElementById("response").innerHTML = ""
+ 
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
 // https://stackoverflow.com/questions/6396101/pure-javascript-send-post-data-without-a-form
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 function submitCanvas() {
+  document.getElementById("submitBtn").disabled = true;
   var data = canvas.toDataURL('image/png')
   fetch("/draw", {body: data, method: 'POST'}).then(response => response.json()).then(json => {
     console.log(json.prediction)
     document.getElementById("response").innerHTML = "Prediction: " + json.prediction
+    document.getElementById("submitBtn").disabled = false;
   })
-  console.log("Submitted")
-  
 }

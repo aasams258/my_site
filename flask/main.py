@@ -10,8 +10,14 @@ import sys
 from io import BytesIO
 from PIL import Image
 
+#Repackage these 2.
+from cloud_utils import mnist_prediction
+import numpy as np
+from googleapiclient import discovery
+
 app = Flask(__name__)
 
+service = discovery.build('ml', 'v1')
 
 @app.route('/')
 def index():
@@ -21,6 +27,7 @@ def index():
 @app.route('/draw', methods=['GET', 'POST'])
 def draw():
     if request.method == 'POST':
+        print("waiting on post")
         dataURI = request.data.decode('UTF-8')
         image_data = re.sub('^data:image/png;base64,', '', dataURI)
         im = Image.open(BytesIO(base64.b64decode(image_data)))
@@ -40,7 +47,14 @@ def draw():
         b_w = list(map(lambda rgb: 1 if sum(rgb) >= threshold else 0, pixels))
         # Now send the array off to the ML tool and return it.
         #pred = task.make_prediction(b_w)
-        return jsonify(prediction=b_w)
+        data = np.array(b_w)
+        data.shape = (28,28)
+        data = data.tolist()
+        req = {"instances": [{"x": data}]}
+        prediction = mnist_prediction(service, req)
+        print(prediction)
+        predicted_class = prediction['predictions'][0]['classes']
+        return jsonify(prediction=predicted_class)
     return render_template('digits.html')
     # Potentially add another POST where we add the user corrected result to an
     # "ON DEMAND" First Generation MYSQL instance. Or just regular DB hosted in a bucket?

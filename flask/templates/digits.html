@@ -17,7 +17,8 @@
   <! addEventListener on an ID instead of func inside tag>
   <button onclick="clearCanvas()">Erase</button>
   <!-- Can probably make this a flask form then use a javascript function to pass in the canvas values-->
-  <button onclick="submitCanvas()">Submit</button>
+  <button id="submitBtn" onclick="submitCanvas()">Submit</button>
   <p id="response"></p>
-  <p> Button to mark if it worked. </p>
+  <p> The model was trained on batches of 100, for 20,000 iterations, resulting in a 97% accuracy.<p>
+  <p> There is preprocessing to crop the white space, and transform the image into a 784 dimensional vector.</p>
 {% endblock %}
