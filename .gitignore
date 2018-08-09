@@ -9,6 +9,10 @@ __pycache__/
 # Private Data
 private/
 
+# Misc.
+.vscode
+.DS_STORE
+
 # Distribution / packaging
 .Python
 build/
