@@ -12,24 +12,40 @@
   
   <p> I filtered the dataset to focus on independently owned local restaurants. I removed large
       buisnesses like Supermarkets [Von's, Whole Foods, Smart & Final] and Restaurant Chains [KFC, Subway, Sizzler's].
+      The resulting set is about half the size at 19,000.
   </p>
   
-  <p> A breakdown of the Health Grade shows that A grades are the majority, with B taking about 1/5th of the share, and C grade restaurants being rare at 2%. </p>
+  <p> A breakdown of the Health Grade shows that A grades are the majority, with B taking about 1/5th of the share,
+       and C grade restaurants being rare at 2%. </p>
   <img src="static/img/health_project/grade_pie_chart.png" width="300" height="300">
 
   <p> A facility starts with a score of 100 points, and for each code violation loses points.</p>
   <p> For instance if a facility does not change the lining in a bread basket between customers, that is a MINOR infraction worth 2 points</p>
-  <p> If a facility serves ground beef with over 30% fat content, that is a MAJOR infraction worth 4 points</p>
+  <p> If a facility serves ground beef with over 30% fat content, that is a MAJOR infraction worth 4 points.</p>
   <p>A score of: </p>
   <ul>
-    <li>90 to 100 yields an A</li>
-    <li>80 to 89 yields an B</li>
-    <li>70 to 79 yields an C</li>
+    <li>90 to 100 receives an A</li>
+    <li>80 to 89 receives an B</li>
+    <li>70 to 79 receives an C</li>
     <li>0 to 69 does not get a letter, but a card displaying the Score instead.</li>
   </ul>
-  <p> A restaurant scoring under 70 twice within 12 months are subject to closure, and any major infractions are discretion wise for closure.</p>
-  <p> If we look at the distribution of scores it looks trimodal </p>
-  <p> Sources:
+  <p> A restaurant scoring under 70 twice within 12 months are subject to closure, and any major infractions may require closure regardless of score.</p>
+  <img src="static/img/health_project/health_score_barplot.png" width="800" height="400">
+
+  <p> The score distribution looks tri-modal, with peaks occuring around 97, 86, and 76. </p>
+  <p> The boundaries between grades look abnormal. Specially look at the difference between 90-89 and 80-79.
+      It seems like inspectors are using their discretion to push boarderline cases to the next highest grade.</p>
+
+  <p> Note to self: What explains the tri-modality? Maybe verify with a Gaussian mixture or Kolmogorov–Smirnov test? </p>
+
+  <p> Also values under 70 are rare, there is only one occurance (at 65). This is most likely due to restaurants requesting a re-inspection if they did poorly.</p>
+
+  <p> Let's look at the categories of restaurants and how they fair on average</p>
+
+  <p> 
+      Sources:
       Public Health http://publichealth.lacounty.gov/eh/misc/ehpost.htm
+
+      Methodology: pdf link.
   </p>
 {% endblock %}
