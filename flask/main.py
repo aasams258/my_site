@@ -1,7 +1,7 @@
 # When running locally install requirements using
 # pip3 install -t lib -r requirements.txt
+# FLASK_APP=main.py FLASK_DEBUG=1 python -m flask run
 
-# [START app]
 import logging
 import base64, re
 
@@ -22,6 +22,10 @@ service = discovery.build('ml', 'v1')
 @app.route('/')
 def index():
     return render_template('homepage.html')
+
+@app.route('/health_scores')
+def health_scores():
+    return render_template('health_scores.html')
 
 # {'loss': 0.10061083, 'global_step': 20000, 'accuracy': 0.9701}
 @app.route('/draw', methods=['GET', 'POST'])
@@ -72,4 +76,3 @@ def server_error(e):
     # Log the error and stacktrace.
     logging.exception('An error occurred during a request.')
     return 'An internal error occurred.', 500
-# [END app]
