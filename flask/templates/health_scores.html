@@ -38,22 +38,26 @@
   <img src="static/img/health_project/health_score_barplot.png" width="800" height="400">
 
   <p> The score distribution looks tri-modal, with peaks occuring around 97, 86, and 76. </p>
+
+  <!--> Note to self: Maybe plot QQ Probability/ Normality Test? -->
   <p> The boundaries between grades look abnormal. Specifically look at the difference between 90-89 and 80-79.
       It seems like inspectors are using their discretion to push boarderline cases to the next highest grade.</p>
 
-  <p> Note to self: What explains the tri-modality? Maybe verify with a Gaussian mixture or Kolmogorov–Smirnov test? </p>
-
   <p> Also values under 70 are rare, there is only one occurance (at 65). This is most likely due to restaurants requesting a re-inspection if they did poorly.</p>
   
-  <h4> Health Scores as related to...</h4>
+  <h4> Do health scores correlate to higher yelp reviews? </h4>
   <img src="static/img/health_project/avg_yelp_v_health_scores.png" width="800" height="500">
+    <p> There indeed seems to be a slight positive correlation between health score and yelp review.</p>
+    <p> We saw from the grade distributions that there is not much data in the C range (2%), if we had more points the averages may show less variance and converge
+        to the regression line.</p>
 
-  
-  <p> Do health scores correlate to stronger yelp reviews?</p>
+  <p> Investigating further, it seems higher rated restaurants have more 4 star reviews and fewer 3. All other
+      scores are very evenly distributed. 4 is positvely correlated with score (R=.56) and 3 negative (R=.70). 
+      Again below 80 the data is very high in variance.
+  </p>
 
-  <p> Investigating further, it seems higher rated restaurants have more 4 star reviews.</p>
   <img src="static/img/health_project/yelp_v_health_scores.png" width="800" height="500">
-  <p> Let's look at the grades vs {reviews, price, risk factors}</p>
+  <p> Let's look at the grades vs {reviews (proxy for popularity), price(??), risk factors}</p>
   <p> 
       Sources:
       Public Health http://publichealth.lacounty.gov/eh/misc/ehpost.htm
