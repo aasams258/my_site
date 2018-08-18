@@ -38,6 +38,7 @@ def draw():
         '''
         # If a 1 is bounding boxed, it will explode to a fat line.
         # Need a better resize tool. maybe just center it on a blank canvas?
+        # Maybe Check the aspect ratio before cropping? 
         b_box = im.getbbox()
         if b_box is None:
             return jsonify(prediction="Draw something first")

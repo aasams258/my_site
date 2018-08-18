@@ -4,19 +4,24 @@
   <h1>Los Angeles Health Scores Analysis</h1>
 
   <p> In this project I combine <b>Los Angeles County's Department of Public Health</b> restaurant inspections dataset
-      with <b>Yelp's</b> page listing. I aim to see if there are any correlations ...</p>
-
-  <p> The Public Health Dataset has ratings for over 44,000 places that serve food in LA County: an area of 10 million people.
-      Yelp's API only allows 5,000 calls per day, and it takes two queries to get the full restaurant data. 
-      For the sake of time, I reduced the size of the dataset. </p>
+      with <b>Yelp's</b> page listing. I aim to see if there are any correlations between the health score and quality
+      of a restaurant in terms of reviews and price.</p>
+  <h4> The Data </h4>
+  <p> The Public Health Dataset has inspections for over 44,000 places that serve food in LA County: an area of 10 million people.
+      The first challenge was to process this data. Yelp's API only allows 5,000 calls per day, and it takes two queries to get the full restaurant details. 
+      For the sake of time, I reduced the size of the dataset by focusing on independently owned local restaurants. </p>
   
-  <p> I filtered the dataset to focus on independently owned local restaurants. I removed large
-      buisnesses like Supermarkets [Von's, Whole Foods, Smart & Final] and Restaurant Chains [KFC, Subway, Sizzler's].
-      The resulting set is about half the size at 19,000.
+  <p> I filtered out supermarkets [Von's, Whole Foods, Smart & Final] and Restaurant Chains [KFC, Subway, Sizzler]. 
+      Hopefully this makes the data more interesting. I assume franchises would have stringent
+      policies to ensure high scores and protect brand image. This assumption can be investigated at a later date.
   </p>
-  
-  <p> A breakdown of the Health Grade shows that A grades are the majority, with B taking about 1/5th of the share,
-       and C grade restaurants being rare at 2%. </p>
+  <p>The final dataset contains approxmitely 16,000 restaurants across all zip codes in LA county.</p>
+
+  <h2> Health Scores and Grades </h2>
+
+  <p> The Health Grade distribution shows that A grades are the majority, with B taking about 1/5th of the share,
+      and C's being rare at 2%. </p>
+
   <img src="static/img/health_project/grade_pie_chart.png" width="300" height="300">
 
   <p> A facility starts with a score of 100 points, and for each code violation loses points.</p>
@@ -27,25 +32,35 @@
     <li>90 to 100 receives an A</li>
     <li>80 to 89 receives an B</li>
     <li>70 to 79 receives an C</li>
-    <li>0 to 69 does not get a letter, but a card displaying the Score instead.</li>
+    <li>0 to 69 does not get a letter, but a card displaying the score instead.</li>
   </ul>
   <p> A restaurant scoring under 70 twice within 12 months are subject to closure, and any major infractions may require closure regardless of score.</p>
   <img src="static/img/health_project/health_score_barplot.png" width="800" height="400">
 
   <p> The score distribution looks tri-modal, with peaks occuring around 97, 86, and 76. </p>
-  <p> The boundaries between grades look abnormal. Specially look at the difference between 90-89 and 80-79.
+  <p> The boundaries between grades look abnormal. Specifically look at the difference between 90-89 and 80-79.
       It seems like inspectors are using their discretion to push boarderline cases to the next highest grade.</p>
 
   <p> Note to self: What explains the tri-modality? Maybe verify with a Gaussian mixture or Kolmogorov–Smirnov test? </p>
 
   <p> Also values under 70 are rare, there is only one occurance (at 65). This is most likely due to restaurants requesting a re-inspection if they did poorly.</p>
+  
+  <h4> Health Scores as related to...</h4>
+  <img src="static/img/health_project/avg_yelp_v_health_scores.png" width="800" height="500">
 
-  <p> Let's look at the categories of restaurants and how they fair on average</p>
+  
+  <p> Do health scores correlate to stronger yelp reviews?</p>
 
+  <p> Investigating further, it seems higher rated restaurants have more 4 star reviews.</p>
+  <img src="static/img/health_project/yelp_v_health_scores.png" width="800" height="500">
+  <p> Let's look at the grades vs {reviews, price, risk factors}</p>
   <p> 
       Sources:
       Public Health http://publichealth.lacounty.gov/eh/misc/ehpost.htm
 
       Methodology: pdf link.
   </p>
+
+  <p> Let's look at the categories of restaurants and how they fair on average</p>
+  <img src="static/img/health_project/category_grade_barplot.png" width="800" height="400">
 {% endblock %}
