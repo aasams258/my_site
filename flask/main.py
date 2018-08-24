@@ -35,24 +35,26 @@ def draw():
         dataURI = request.data.decode('UTF-8')
         image_data = re.sub('^data:image/png;base64,', '', dataURI)
         im = Image.open(BytesIO(base64.b64decode(image_data)))
-        '''
+  
         # If a 1 is bounding boxed, it will explode to a fat line.
         # Need a better resize tool. maybe just center it on a blank canvas?
         # Maybe Check the aspect ratio before cropping? 
         b_box = im.getbbox()
         if b_box is None:
             return jsonify(prediction="Draw something first")
-        im = im.crop(b_box)
+        # Expand bounding box, in order to center the image a bit more.
+        expansion_coef = (-5,-5,5,5)
+        b_box2 = [sum(x) for x in zip(b_box,expansion_coef )]
+        im = im.crop(b_box2)
+
         im = im.resize((28,28), Image.ANTIALIAS)
-        '''
-        '''
-        # For outputing a data URI
+
+        # For visualizing the crop and rescale.
         buffered = BytesIO()
         im.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue())
-        print(img_str)
-        '''
-        im.thumbnail((28,28), Image.ANTIALIAS)
+        data64 = base64.b64encode(buffered.getvalue())
+        img_str = u'data:img/png;base64,'+ data64.decode('utf-8')
+
         pixels = list(im.getdata())
         # Turn pixels to B&W if they are over $threshold value.
         threshold = 150
@@ -66,7 +68,7 @@ def draw():
         req = {"instances": [{"x": data}]}
         prediction = mnist_prediction(service, req)
         predicted_class = prediction['predictions'][0]['classes']
-        return jsonify(prediction=predicted_class)
+        return jsonify(prediction=predicted_class, img_uri=img_str)
     return render_template('digits.html')
     # Potentially add another POST where we add the user corrected result to an
     # "ON DEMAND" First Generation MYSQL instance. Or just regular DB hosted in a bucket?

@@ -1,11 +1,4 @@
-/* © 2009 ROBO Design
- * http://www.robodesign.ro
- */
-// https://dev.opera.com/articles/html5-canvas-painting/
-
-// Keep everything in anonymous function, called on window load.
-
-// Refactor this so its not so wrapped up, and only reads mouse events on the canvas itself.
+// Code modified from: https://dev.opera.com/articles/html5-canvas-painting
 var canvas, context, pencil;
 if(window.addEventListener) {
   window.addEventListener('load', function () {
@@ -59,9 +52,7 @@ function pencil () {
       s_y = ev._y;
   };
 
-  // This function is called every time you move the mouse. Obviously, it only 
-  // draws if the tool.started state is set to true (when you are holding down 
-  // the mouse button).
+  // This function is called every time you move the mouse.
   this.mousemove = function (ev) {
     if (tool.started) {
       if (ev._x == s_x && ev._y == s_y) {
@@ -87,8 +78,9 @@ function pencil () {
     }
   };
 }
-    // The general-purpose event handler. This function just determines the mouse 
-    // position relative to the canvas element.
+
+// The general-purpose event handler. This function just determines the mouse 
+// position relative to the canvas element.
 function canvasHandler (ev) {
   if (ev.layerX || ev.layerX == 0) { // Firefox
     ev._x = ev.layerX;
@@ -118,8 +110,9 @@ function submitCanvas() {
   document.getElementById("submitBtn").disabled = true;
   var data = canvas.toDataURL('image/png')
   fetch("/draw", {body: data, method: 'POST'}).then(response => response.json()).then(json => {
-    console.log(json.prediction)
     document.getElementById("response").innerHTML = "Prediction: " + json.prediction
     document.getElementById("submitBtn").disabled = false;
+    // For Debug Purposes
+    document.getElementById("moded").src = json.img_uri;
   })
 }

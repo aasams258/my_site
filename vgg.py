@@ -41,6 +41,7 @@ from scipy.misc import imread, imresize
 '''
 # VGG-D model from https://arxiv.org/pdf/1409.1556.pdf.
 # Weights from https://www.cs.toronto.edu/~frossard/post/vgg16/#weights
+# By passing https://github.com/ethereon/caffe-tensorflow
 def vgg_model(features, labels, mode):
     weights = np.load("vgg16_weights.npz")
     # Make sure the mean RGB value is subtracted from the pixels.
