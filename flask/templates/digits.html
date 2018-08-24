@@ -6,20 +6,29 @@
 
 {% block content %}
   <h1>Digit Recognizer</h1>
-  <p> This project uses a Convolutional Neural Network programmed in Tensorflow to recognize a digit drawn in an HTML5 canvas. Give it a try.</p>
-  <p> Write a digit 0-9, in the box below and click submit.</p>
+  <p> This project uses a Convolutional Neural Network programmed in Tensorflow to recognize a digit drawn in an HTML5 canvas.</p>
+  <p> Give it a try by writing a numeric digit from 0-9, in the box below and click submit.</p>
   
   <div id="container">
     <canvas id="imageView" width="84" height="84" style="border: 1px solid #000">
       <p>Unfortunately, your browser isn't currently unsupported.</p>
     </canvas>
   </div>
+
   <! addEventListener on an ID instead of func inside tag>
   <button onclick="clearCanvas()">Erase</button>
-  <!-- Can probably make this a flask form then use a javascript function to pass in the canvas values-->
+
   <button id="submitBtn" onclick="submitCanvas()">Submit</button>
   <p id="response"></p>
-  <p> The model was trained on batches of 100, for 20,000 iterations, resulting in a 97% accuracy.<p>
+  <table id="topK">
+    <tr>
+      <td>Class</td> <td>Probability</td>
+    </tr>
+  </table>
+
+  <p> The model was trained on batches of 100, for 20,000 iterations, resulting in a 97% accuracy;
+    however, in practice I find it to be much lower. </p>
+  <p> My guess would be </p>
   <p> Preprocessing is needed to center and transform the image into a 784 dimensional vector.</p>
   <p> This is some of the pre processing: </p>
   <img id="moded" src="" style="border-style: solid;border-width: 3px; border-color: red;"/> 

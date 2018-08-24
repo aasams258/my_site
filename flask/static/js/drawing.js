@@ -110,7 +110,18 @@ function submitCanvas() {
   document.getElementById("submitBtn").disabled = true;
   var data = canvas.toDataURL('image/png')
   fetch("/draw", {body: data, method: 'POST'}).then(response => response.json()).then(json => {
-    document.getElementById("response").innerHTML = "Prediction: " + json.prediction
+    //document.getElementById("response").innerHTML = "Prediction 1: " + json.prediction[0][0]
+    var table = document.getElementById("topK");
+    
+    console.log(json.prediction)
+    for (var i = 0; i < json.prediction.length; i++) {
+      console.log(i)
+      var row = table.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.innerHTML = json.prediction[i][0];
+      cell2.innerHTML = json.prediction[i][1];
+    }
     document.getElementById("submitBtn").disabled = false;
     // For Debug Purposes
     document.getElementById("moded").src = json.img_uri;

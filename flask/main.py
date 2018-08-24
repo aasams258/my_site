@@ -58,9 +58,9 @@ def draw():
         pixels = list(im.getdata())
         # Turn pixels to B&W if they are over $threshold value.
         threshold = 150
-        # Color value seems to be stored in the transparency channel.
-        # But will summate over all just incase.
-        b_w = list(map(lambda rgba: 1 if sum(rgba) >= threshold else 0, pixels))
+        # Color value seems is stored in the transparency channel.
+        #b_w = list(map(lambda rgba: 1 if sum(rgba) >= threshold else 0, pixels))
+        b_w = list(map(lambda rgba: rgba[3]/255.0, pixels))
         data = np.array(b_w)
         data.shape = (28,28)
         data = data.tolist()
@@ -68,7 +68,9 @@ def draw():
         req = {"instances": [{"x": data}]}
         prediction = mnist_prediction(service, req)
         predicted_class = prediction['predictions'][0]['classes']
-        return jsonify(prediction=predicted_class, img_uri=img_str)
+        top_3 = sorted(enumerate(prediction['predictions'][0]['probabilities']),key=lambda x: x[1], reverse=True)[0:3]
+        print(top_3[0:3])
+        return jsonify(prediction=top_3, img_uri=img_str)
     return render_template('digits.html')
     # Potentially add another POST where we add the user corrected result to an
     # "ON DEMAND" First Generation MYSQL instance. Or just regular DB hosted in a bucket?
