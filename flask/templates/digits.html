@@ -2,6 +2,7 @@
 
 {% block extrahead %}
     <script type="text/javascript" src="{{ url_for('static', filename='js/drawing.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/digits.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -17,23 +18,26 @@
   </div>
 
   <button onclick="clearCanvas()">Erase</button>
-
   <button id="submitBtn" onclick="submitCanvas()">Submit</button>
-  <p id="response"></p>
+
+  <p id="error" style="color:red"></p>
+
   <table id="topK">
     <tr>
-      <td>Class</td> <td>Probability</td>
+      <td><b>Digit</b></td> <td><b>Probability</b></td>
     </tr>
+    <tr><td>?</td> <td>?</td></tr>
   </table>
 
   <p> The model was trained on batches of 100, for 20,000 iterations, resulting in a 97% accuracy. </p>
-  <p> When I first was creating this, I found the accuracy was very poor. My guess would be the input from canvas tool did not look close enough to the training data.
-      It is particulary bad at guessing 7's and 1's, which got distorted when drawing. </p>
+  <p> When I first was creating this, I found the accuracy was very poor. It was particulary bad at guessing 7's and 1's. 
+      My initial guess was the input from canvas tool did not look close enough to the training data.
   </p>
   <p> I tried to preprocess the data to look like the inputs, by centering, adding white space around the digit and rescaling the image, before creating the 784 dimensional vector.</p>
   <p> For instance this is what the input looks like:</p>
   <img id="moded" src="" style="border-style: solid;border-width: 3px; border-color: red;"/> 
 
-  <p> This is what the infrastructure for this project looks like: </p>
-
+  <p> This is what the infrastructure for this project:</p>
+  <img src="static/img/ml_diagram_color.png" width="420" height="180">
+  <p> This is what the infrastructure for this project:</p>
 {% endblock %}

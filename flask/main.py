@@ -41,7 +41,7 @@ def draw():
         # Maybe Check the aspect ratio before cropping? 
         b_box = im.getbbox()
         if b_box is None:
-            return jsonify(prediction="Draw something first")
+            return jsonify(error="Draw something first")
         # Expand bounding box, in order to center the image a bit more.
         expansion_coef = (-20,-20,20,20)
         b_box2 = [sum(x) for x in zip(b_box,expansion_coef )]

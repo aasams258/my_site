@@ -6,7 +6,7 @@ if(window.addEventListener) {
       // Find the canvas element.
       canvas = document.getElementById('imageView');
       if (!canvas) {
-        alert('Error: Cannot find the canvas element!');
+        alert('Error: I cannot find the canvas element!');
         return;
       }
 
@@ -119,16 +119,19 @@ function submitCanvas() {
     for (var i  = 1; i < table.rows.length;) {
       table.deleteRow(i)
     }
-    for (var i = 0; i < json.prediction.length; i++) {
-      var row = table.insertRow(-1);
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
-      cell1.innerHTML = json.prediction[i][0];
-      cell2.innerHTML = json.prediction[i][1];
-    }
-    
-    document.getElementById("submitBtn").disabled = false;
-    // For Debug Purposes
-    document.getElementById("moded").src = json.img_uri;
+
+    if (json.error) {
+      document.getElementById("error").innerHTML = json.error
+    } else {
+      for (var i = 0; i < json.prediction.length; i++) {
+        var row = table.insertRow(-1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = json.prediction[i][0];
+        cell2.innerHTML = Number(json.prediction[i][1]).toFixed(2);
+      }
+      document.getElementById("moded").src = json.img_uri;
+   }
+   document.getElementById("submitBtn").disabled = false;    
   })
 }
