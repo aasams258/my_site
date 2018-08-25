@@ -27,10 +27,11 @@
     </tr>
   </table>
 
-  <p> The model was trained on batches of 100, for 20,000 iterations, resulting in a 97% accuracy;
-      however, in practice I find it to be much lower. It is particulary bad at guessing 7's and 1's. </p>
-  <p> My guess would be the input from canvas tool does not look close enough to the training data.</p>
-  <p> I tried to preprocess the data to look like the inputs, by centering and transforming the image, before create the 784 dimensional vector.</p>
+  <p> The model was trained on batches of 100, for 20,000 iterations, resulting in a 97% accuracy. </p>
+  <p> When I first was creating this, I found the accuracy was very poor. My guess would be the input from canvas tool did not look close enough to the training data.
+      It is particulary bad at guessing 7's and 1's, which got distorted when drawing. </p>
+  </p>
+  <p> I tried to preprocess the data to look like the inputs, by centering, adding white space around the digit and rescaling the image, before creating the 784 dimensional vector.</p>
   <p> For instance this is what the input looks like:</p>
   <img id="moded" src="" style="border-style: solid;border-width: 3px; border-color: red;"/> 
 
