@@ -113,10 +113,12 @@ function submitCanvas() {
   document.getElementById("submitBtn").disabled = true;
   var data = canvas.toDataURL('image/png')
   fetch("/draw", {body: data, method: 'POST'}).then(response => response.json()).then(json => {
-    //document.getElementById("response").innerHTML = "Prediction 1: " + json.prediction[0][0]
     var table = document.getElementById("topK");
 
-    console.log(json.prediction)
+    // Incase the submit button is pressed multiple times.
+    for (var i  = 1; i < table.rows.length;) {
+      table.deleteRow(i)
+    }
     for (var i = 0; i < json.prediction.length; i++) {
       console.log(i)
       var row = table.insertRow(-1);
