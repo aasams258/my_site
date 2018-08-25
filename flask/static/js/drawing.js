@@ -100,7 +100,10 @@ function canvasHandler (ev) {
 function clearCanvas() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   document.getElementById("response").innerHTML = ""
- 
+  var table = document.getElementById("topK");
+  for (var i  = 1; i < table.rows.length;) {
+    table.deleteRow(i)
+  }
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
@@ -112,7 +115,7 @@ function submitCanvas() {
   fetch("/draw", {body: data, method: 'POST'}).then(response => response.json()).then(json => {
     //document.getElementById("response").innerHTML = "Prediction 1: " + json.prediction[0][0]
     var table = document.getElementById("topK");
-    
+
     console.log(json.prediction)
     for (var i = 0; i < json.prediction.length; i++) {
       console.log(i)

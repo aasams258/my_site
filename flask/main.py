@@ -43,7 +43,7 @@ def draw():
         if b_box is None:
             return jsonify(prediction="Draw something first")
         # Expand bounding box, in order to center the image a bit more.
-        expansion_coef = (-5,-5,5,5)
+        expansion_coef = (-20,-20,20,20)
         b_box2 = [sum(x) for x in zip(b_box,expansion_coef )]
         im = im.crop(b_box2)
 
