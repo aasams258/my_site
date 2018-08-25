@@ -8,8 +8,8 @@
 {% block content %}
   <h1>Digit Recognizer</h1>
   <p> This project uses a Convolutional Neural Network programmed in Tensorflow to recognize a digit drawn in an HTML5 canvas.</p>
-  <p> Give it a try by writing a numeric digit from 0-9, in the box below and click submit. 
-      Note The first input will take a while as the machine learning server will need to spin up.</p>
+  <p> Give it a try by writing a numeral from 0-9, in the box below and click submit. </p>
+  <p> Be patient as the first input will take a while as the machine learning server will need to spin up.</p>
   
   <div id="container">
     <canvas id="imageView" width="84" height="84" style="border: 1px solid #000">
@@ -29,15 +29,20 @@
     <tr><td>?</td> <td>?</td></tr>
   </table>
 
-  <p> The model was trained on batches of 100, for 20,000 iterations, resulting in a 97% accuracy. </p>
-  <p> When I first was creating this, I found the accuracy was very poor. It was particulary bad at guessing 7's and 1's. 
-      My initial guess was the input from canvas tool did not look close enough to the training data.
+  <p> The model was trained on batches of 100 images for 20,000 iterations, resulting in a 97% accuracy. </p>
+  <p> When I first testing this page, I found the accuracy was very poor. It was particulary bad at guessing 7 and 1. 
+      My initial hunch was the input from canvas tool did not look close enough to the training data.
   </p>
-  <p> I tried to preprocess the data to look like the inputs, by centering, adding white space around the digit and rescaling the image, before creating the 784 dimensional vector.</p>
+  <p> I spent more time preprocessing the data to look like the inputs. 
+    By centering cropping, adding white space around the digit and rescaling the image, before creating the 784 dimensional vector.</p>
   <p> For instance this is what the input looks like:</p>
   <img id="moded" src="" style="border-style: solid;border-width: 3px; border-color: red;"/> 
 
   <p> This is what the infrastructure for this project:</p>
   <img src="static/img/ml_diagram_color.png" width="420" height="180">
-  <p> This is what the infrastructure for this project:</p>
+  <p> 1: The user draws a digit on the canvas element, which is sent to the Flask backend. </p>
+  <p> 2: The backend processes the data turning it into a 784 dimensional vector, which is sent to the ML Engine instance for classification. </p>
+  <p> 3: The prediction is returned to the user, who can verify the input </p>
+  <p> 4: The verified input and the original unprocessed data are archived in a database </p>
+  <p> 5: The ML engine can retrain using the new user labeled inputs to create an improved new model. </p>
 {% endblock %}
