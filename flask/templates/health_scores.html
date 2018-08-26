@@ -38,10 +38,10 @@
   <h3> Score Distribution </h3>
   <img src="static/img/health_project/health_score_barplot.png" width="800" height="400" class="center">
   <p> Instead of a single bell curve, the score distribution looks tri-modal with peaks occuring around 97, 85, and 76, each having a slight right-skew and an edge peak.
-      Perhaps the multi-modality reflects that there are different types of retaurant owners, each with different sensitivies towards what they view is sanitary. </p>
+      Perhaps the multi-modality reflects that there are different types of restaurant owners, each with different views on acceptable sanitation. </p>
 
   <!-- Note to self: Maybe plot QQ Probability/ Normality Test? -->
-  <p> The edge peak boundaries between grades are curious. Specifically look at the large differences between 90-89 and 80-79.
+  <p> The edge peak boundaries between grades are curious, look at the large differences between 90-89 and 80-79.
       It seems like inspectors are using their discretion to push boarderline cases to the next highest grade.</p>
 
   <p> Also values under 70 are rare, there is only one occurance (at 65). 
@@ -50,17 +50,18 @@
   
   <h4> Do health scores correlate to higher yelp reviews? </h4>
   <img src="static/img/health_project/avg_yelp_v_health_scores.png" width="800" height="500" class="center">
-    <p> There seems to be a slight positive correlation between health score and yelp review.</p>
+    <p> There seems to be a slight positive correlation between health score and average yelp review. It is a modest ~1/3 of a star increase from a C and an A.</p>
+    
     <p> We saw from the grade distributions that there is not much data in the C range (2%), if we had more points the averages may show less variance and converge
-        towards the regression line.</p>
-    <p> If we look at the edge peaks from the score distribution (79 and 89) we see the scores jump. </p>
+        towards the regression line. </p>
 
-    <p> Looking at a normalized distribution of stars, it seems higher health scores have more 4 star restaurants and fewer 3 stars.
-        All other scores are relatively evenly distributed. 4 stars are positvely correlated with health score (R=0.56) and 3 are negativly correlated (R=0.70). 
-      Again below 80 the data is very high in variance.
-  </p>
+    <img src="static/img/health_project/yelp_v_health_scores.png" width="800" height="500" class="center">
+    <p> Looking at a normalized distribution of stars it seems higher health scores have more 4 star and fewer 3 star restaurants.
+        4 stars are positvely correlated with increasing health score (R=0.56) and 3's are negativly correlated (R=0.70). 
+        All other scores are relatively evenly distributed and make up less than 20% of reviews. 
+        This seems to indicate that higher health scores have a minimal impact on restaurant experience,
+        potentially raising a 3 star review 1/2 to 1 more star. (Plot 3 vs 3.5 and 4 vs 4.5) </p>
 
-  <img src="static/img/health_project/yelp_v_health_scores.png" width="800" height="500" class="center">
   <p> Let's look at the grades vs {reviews (proxy for popularity), price(??), risk factors}</p>
   <p> 
       Sources:
@@ -71,4 +72,6 @@
 
   <p> Let's look at the categories of restaurants and how they fair on average</p>
   <img src="static/img/health_project/category_grade_barplot.png" width="800" height="400" class="center">
+  <h2> Future</h2>
+  It would be interesting to compare large chains against one another.
 {% endblock %}
