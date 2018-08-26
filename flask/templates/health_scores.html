@@ -6,58 +6,61 @@
   <p> In this project I combine <b>Los Angeles County's Department of Public Health</b> restaurant inspections dataset
       with <b>Yelp's</b> page listing. I aim to see if there are any correlations between the health score and quality
       of a restaurant in terms of reviews and price.</p>
-  <h4> The Data </h4>
-  <p> The Public Health Dataset has inspections for over 44,000 places that serve food in LA County: an area of 10 million people.
+
+  <h2> The Data </h2>
+  <p> The Public Health Dataset has inspections for over 44,000 places that serve food in LA County - an area of 10 million people.
       The first challenge was to process this data. Yelp's API only allows 5,000 calls per day, and it takes two queries to get the full restaurant details. 
       For the sake of time, I reduced the size of the dataset by focusing on independently owned local restaurants. </p>
-  
-  <p> I filtered out supermarkets [Von's, Whole Foods, Smart & Final] and Restaurant Chains [KFC, Subway, Sizzler]. 
-      Hopefully this makes the data more interesting. I assume franchises would have stringent
-      policies to ensure high scores and protect brand image. This assumption can be investigated at a later date.
-  </p>
-  <p>The final dataset contains approxmitely 16,000 restaurants across all zip codes in LA county.</p>
 
+  <p> I filtered out ~25,000 markets (Von's, Whole Foods, Convenience Stores) and chains (KFC, Subway, Sizzler). 
+      Hopefully this makes the data more interesting and diverse. I assumed franchises would have stringent
+      policies to ensure high scores to protect brand image (this assumption can be investigated at a later date). </p>
+
+  <p> The final dataset contains approxmitely 16,000 restaurants across all zip codes in LA county.</p>
   <h2> Health Scores and Grades </h2>
 
-  <p> The Health Grade distribution shows that A grades are the majority, with B taking about 1/5th of the share,
-      and C's being rare at 2%. </p>
+  <p> The health grade distribution shows that A grades are the majority, with B taking about 1/5th of the share, and C's being rare at 2%. </p>
+  <img src="static/img/health_project/grade_pie_chart.png" width="300" height="300" class="center">
 
-  <img src="static/img/health_project/grade_pie_chart.png" width="300" height="300">
-
-  <p> A facility starts with a score of 100 points, and for each code violation loses points.</p>
-  <p> For instance if a facility does not change the lining in a bread basket between customers, that is a MINOR infraction worth 2 points</p>
-  <p> If a facility serves ground beef with over 30% fat content, that is a MAJOR infraction worth 4 points.</p>
-  <p>A score of: </p>
+  <h3> How Grading Works </h3>
+  <p> A facility starts with a score of 100 points and for each code violation loses points.</p>
+  <p> For instance if a facility does not change the lining in a bread basket between customers, that is a <span style="color: #ffa500"> MINOR </span> infraction worth 2 points</p>
+  <p> If a facility serves ground beef with over 30% fat content that is a <span style="color: #ff0000"> MAJOR </span> infraction worth 4 points.</p>
+  <p> A score of</p>
   <ul>
-    <li>90 to 100 receives an A</li>
-    <li>80 to 89 receives an B</li>
-    <li>70 to 79 receives an C</li>
-    <li>0 to 69 does not get a letter, but a card displaying the score instead.</li>
+    <li> 90 to 100 receives <span style="color: #036AD1"> Grade A</span></li>
+    <li> 80 to 89 receives <span style="color: #3BB92A"> Grade B</span></li>
+    <li> 70 to 79 receives <span style="color: #FB9517"> Grade C</span></li>
+    <li> 0 to 69 does not get a letter, but a card displaying the score instead.</li>
   </ul>
   <p> A restaurant scoring under 70 twice within 12 months are subject to closure, and any major infractions may require closure regardless of score.</p>
-  <img src="static/img/health_project/health_score_barplot.png" width="800" height="400">
-
-  <p> The score distribution looks tri-modal, with peaks occuring around 97, 85, and 76. </p>
+  
+  <h3> Score Distribution </h3>
+  <img src="static/img/health_project/health_score_barplot.png" width="800" height="400" class="center">
+  <p> Instead of a single bell curve, the score distribution looks tri-modal with peaks occuring around 97, 85, and 76, each having a slight right-skew and an edge peak.
+      Perhaps the multi-modality reflects that there are different types of retaurant owners, each with different sensitivies towards what they view is sanitary. </p>
 
   <!-- Note to self: Maybe plot QQ Probability/ Normality Test? -->
-  <p> The boundaries between grades look abnormal. Specifically look at the difference between 90-89 and 80-79.
+  <p> The edge peak boundaries between grades are curious. Specifically look at the large differences between 90-89 and 80-79.
       It seems like inspectors are using their discretion to push boarderline cases to the next highest grade.</p>
 
-  <p> Also values under 70 are rare, there is only one occurance (at 65). This is most likely due to restaurants requesting a re-inspection if they did poorly.</p>
+  <p> Also values under 70 are rare, there is only one occurance (at 65). 
+      This is most likely due to the threat of closure for low scores leading restaurants to request a re-inspection if they did poorly.
+      My data only includes the most recent inspection, but after looking through the complete dataset again there are only around 5 cases of below 70.</p>
   
   <h4> Do health scores correlate to higher yelp reviews? </h4>
-  <img src="static/img/health_project/avg_yelp_v_health_scores.png" width="800" height="500">
-    <p> There indeed seems to be a slight positive correlation between health score and yelp review.</p>
+  <img src="static/img/health_project/avg_yelp_v_health_scores.png" width="800" height="500" class="center">
+    <p> There seems to be a slight positive correlation between health score and yelp review.</p>
     <p> We saw from the grade distributions that there is not much data in the C range (2%), if we had more points the averages may show less variance and converge
-        to the regression line.</p>
-Maybe pull the restaurant at around 73 with the 2 score and see what reviews say?
-  <p> Investigating further, it seems higher rated restaurants have more 4 star reviews and fewer 3. All other
-      scores are very evenly distributed. It seems just one star differnece in reviews sets restaurants a pars.
-      4 is positvely correlated with score (R=.56) and 3 negative (R=.70). 
+        towards the regression line.</p>
+    <p> If we look at the edge peaks from the score distribution (79 and 89) we see the scores jump. </p>
+
+    <p> Looking at a normalized distribution of stars, it seems higher health scores have more 4 star restaurants and fewer 3 stars.
+        All other scores are relatively evenly distributed. 4 stars are positvely correlated with health score (R=0.56) and 3 are negativly correlated (R=0.70). 
       Again below 80 the data is very high in variance.
   </p>
 
-  <img src="static/img/health_project/yelp_v_health_scores.png" width="800" height="500">
+  <img src="static/img/health_project/yelp_v_health_scores.png" width="800" height="500" class="center">
   <p> Let's look at the grades vs {reviews (proxy for popularity), price(??), risk factors}</p>
   <p> 
       Sources:
@@ -67,5 +70,5 @@ Maybe pull the restaurant at around 73 with the 2 score and see what reviews say
   </p>
 
   <p> Let's look at the categories of restaurants and how they fair on average</p>
-  <img src="static/img/health_project/category_grade_barplot.png" width="800" height="400">
+  <img src="static/img/health_project/category_grade_barplot.png" width="800" height="400" class="center">
 {% endblock %}
