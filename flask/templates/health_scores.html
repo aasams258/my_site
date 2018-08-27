@@ -60,19 +60,32 @@
         4 stars are positvely correlated with increasing health score (R=0.56) and 3's are negativly correlated (R=0.70). 
         All other scores are relatively evenly distributed and make up less than 20% of reviews. 
         This seems to indicate that higher health scores have a minimal impact on restaurant experience,
-        potentially raising a 3 star review 1/2 to 1 more star. (Plot 3 vs 3.5 and 4 vs 4.5) </p>
+        at most pushing a borderline 4 star restaurant into 4 territory.</p>
 
-  <p> Let's look at the grades vs {reviews (proxy for popularity), price(??), risk factors}</p>
-  <img src="static/img/health_project/review_ct_vs_health.png" width="800" height="400" class="center">
-  <p> 
-      Sources:
-      Public Health http://publichealth.lacounty.gov/eh/misc/ehpost.htm
-
-      Methodology: pdf link.
+  <h3>Health Score and Popularity</h3>
+  <p> Yelp's API offers no metric for popularity, but we can look at the number of customer reviews as a proxy for popularity.
+      Perhaps people avoid low health grade restaurants because they have a perception of being dirty. 
   </p>
+  <img src="static/img/health_project/review_vs_heatlh.png" width="800" height="400" class="center">
+  <p> The review count looks to be downward trending with health score, but it is hard to notice without the regression line.  
+      The correlation coefficient is low, and the points look like noise. It doesn't seem like higher health grades attract more customers. </p>
+
+  <h3>Health Grade and Price</h3>
+  <p> Yelp rates the price in terms of dollar signs. The scale ranges from $ being around $10 a meal to $$$$ which is the most expensive at over $60 per person.</p>
+  <p> The idea is a more expensive restaurant will tend to be cleaner.</p>
+  <img src="static/img/health_project/price_barplot2.png" width="800" height="400" class="center">
+  <p> The breakdown seems to indicate that as grade increases the share of $$$ and $$$$ restaurants increase. 
+      However C restaurants have the largest percent of $$$$ even though there are only 4 compared to A which have 114. There are few C that this is enough to boost it
+      up. </p>
+
+
 
   <p> Let's look at the categories of restaurants and how they fair on average</p>
   <img src="static/img/health_project/category_grade_barplot.png" width="800" height="400" class="center">
   <h2> Future</h2>
   It would be interesting to compare large chains against one another.
+
+  <footer>
+        Sources: Public Health http://publichealth.lacounty.gov/eh/misc/ehpost.htm
+  </footer>
 {% endblock %}
