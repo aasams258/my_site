@@ -1,4 +1,5 @@
 // Code modified from: https://dev.opera.com/articles/html5-canvas-painting
+// A bit complex, but works the best from all implementations I tried.
 var canvas, context, pencil;
 if(window.addEventListener) {
   window.addEventListener('load', function () {
@@ -17,7 +18,7 @@ if(window.addEventListener) {
 
       // Get the 2D canvas context.
       context = canvas.getContext('2d');
-      context.lineWidth= 3;
+      context.lineWidth = 3;
       if (!context) {
         alert('Error: failed to getContext!');
         return;
@@ -82,14 +83,13 @@ function pencil () {
 // The general-purpose event handler. This function just determines the mouse 
 // position relative to the canvas element.
 function canvasHandler (ev) {
-  if (ev.layerX || ev.layerX == 0) { // Firefox
-    ev._x = ev.layerX;
-    ev._y = ev.layerY;
-  } else if (ev.offsetX || ev.offsetX == 0) { // Opera
-    ev._x = ev.offsetX;
-    ev._y = ev.offsetY
-  }
-
+  // https://stackoverflow.com/questions/17130395/real-mouse-position-in-canvas
+  var rect = canvas.getBoundingClientRect();
+  ev._x = (ev.clientX - rect.left) / (rect.right - rect.left) * canvas.width ;
+  ev._y= (ev.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height ;
+  console.log("X:" +  ev._x);
+  console.log("Y:" + ev._y);
+ 
   // Call the event handler of the tool.
   var func = pencil[ev.type];
   if (func) {
@@ -105,8 +105,6 @@ function clearCanvas() {
   }
 }
 
-// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
-// https://stackoverflow.com/questions/6396101/pure-javascript-send-post-data-without-a-form
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 function submitCanvas() {
   document.getElementById("submitBtn").disabled = true;
