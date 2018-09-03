@@ -7,6 +7,10 @@
 body {
     font-family: 'Lato', sans-serif;
     background: #ffffff;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #000000;
 }
 
 @import "https://fonts.googleapis.com/css?family=Lato";

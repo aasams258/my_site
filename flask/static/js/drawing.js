@@ -99,7 +99,6 @@ function canvasHandler (ev) {
 
 function clearCanvas() {
   context.clearRect(0, 0, canvas.width, canvas.height);
-  document.getElementById("response").innerHTML = ""
   var table = document.getElementById("topK");
   for (var i  = 1; i < table.rows.length;) {
     table.deleteRow(i)

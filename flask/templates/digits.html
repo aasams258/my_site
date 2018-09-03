@@ -7,42 +7,54 @@
 
 {% block content %}
   <h1>Digit Recognizer</h1>
-  <p> This project uses a Convolutional Neural Network programmed in Tensorflow to recognize a digit drawn in an HTML5 canvas.</p>
+  <br>
+  <p> This project uses a Convolutional Neural Network (CNN) programmed in Tensorflow to recognize a digit drawn in an HTML5 canvas.</p>
   <p> Give it a try by writing a numeral from 0-9, in the box below and click submit. </p>
   <p> Be patient as the first input will take a while as the machine learning server will need to spin up.</p>
-  
-  <div id="container">
-    <canvas id="imageView" width="84" height="84" style="border: 1px solid #000">
-      <p>Unfortunately, your browser isn't currently unsupported.</p>
-    </canvas>
+  <div class="col-sm-12 text-center">
+    <div id="container">
+      <canvas id="imageView" width="84" height="84" style="border: 1px solid #000">
+        <p> Unfortunately, your browser isn't currently unsupported. </p>
+      </canvas>
+    </div>
+
+    <button id="submitBtn" class="btn btn-primary btn-md center-block" onclick="submitCanvas()"> Submit </button>
+    <button class="btn btn-danger btn-md center-block" onclick="clearCanvas()"> Erase </button>
+    <p id="error" style="color:red"></p>
+
   </div>
 
-  <button onclick="clearCanvas()">Erase</button>
-  <button id="submitBtn" onclick="submitCanvas()">Submit</button>
-
-  <p id="error" style="color:red"></p>
-
-  <table id="topK">
-    <tr>
-      <td><b>Digit</b></td> <td><b>Probability</b></td>
-    </tr>
-    <tr><td>?</td> <td>?</td></tr>
-  </table>
+  <table id="topK" class="table text-center table-bordered table-sm">
+      <tr>
+        <td><b>Digit</b></td> <td><b>Probability</b></td>
+      </tr>
+      <tr><td>?</td> <td>?</td></tr>
+    </table>
 
   <p> The model was trained on batches of 100 images for 20,000 iterations, resulting in a 97% accuracy. </p>
-  <p> When I first testing this page, I found the accuracy was very poor. It was particulary bad at guessing 7 and 1. 
-      My initial hunch was the input from canvas tool did not look close enough to the training data.
-  </p>
-  <p> I spent more time preprocessing the data to look like the inputs. 
-    By centering cropping, adding white space around the digit and rescaling the image, before creating the 784 dimensional vector.</p>
-  <p> For instance this is what the input looks like:</p>
-  <img id="moded" src="" style="border-style: solid;border-width: 3px; border-color: red;"/> 
 
-  <p> This is what the infrastructure for this project:</p>
-  <img src="static/img/ml_diagram_color.png" width="420" height="180">
-  <p> 1: The user draws a digit on the canvas element, which is sent to the Flask backend. </p>
-  <p> 2: The backend processes the data turning it into a 784 dimensional vector, which is sent to the ML Engine instance for classification. </p>
-  <p> 3: The prediction is returned to the user, who can verify the input </p>
-  <p> 4: The verified input and the original unprocessed data are archived in a database </p>
-  <p> 5: The ML engine can retrain using the new user labeled inputs to create an improved new model. </p>
-{% endblock %}
+  <p> When I first tested this page, I found the accuracy was very poor. It was particulary bad at guessing <i> 7 </i> and <i> 1 </i>. 
+      My initial hunch was this is a domain adapaton problem: the input from canvas tool did not look close enough to the training data.
+  </p>
+  <p> I examined the training data, and preprocessed the canvas data by cropping the drawing, adding white space around the crop,
+      and then rescaling the image to 28x28 before creating the 784 dimensional vector. </p>
+  <p> After you draw this is what the input looks like:</p>
+  <img id="moded" src="" style="border-style: solid;border-width: 3px; border-color: red;"/> 
+  <p> To really visualize this try drawing in the corner of the prediction box to see the centering in action. </p>
+
+  <p> This was much closer to the training data, and boosted my accuracy.</p>
+
+  <p> While this is currently a toy project to play with Google's ML engine and Tensorflow.
+      In a more production setting we would like to reuse the users input and put it into the training set, rolling out
+      new models as we collect more data.
+  </p>
+  <img src="static/img/ml_diagram_color.png" width="420" height="180" class="center">
+
+  <ol>
+    <li> The user draws a digit on the canvas element, which is sent to the Flask backend. </li>
+    <li> The backend pre-processes the data and converts it to a 784 dimensional vector, which is sent to the ML Engine instance for classification. </li>
+    <li> The prediction is returned to the user, who can verify the input </li>
+    <li> The verified input and the original unprocessed data are archived to a database </li>
+    <li> The ML engine can retrain using the new user labeled inputs to create an improved new model with more domain adaptation.</li>
+  </ol> 
+  {% endblock %}
