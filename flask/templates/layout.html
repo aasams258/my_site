@@ -19,8 +19,17 @@
       $("#components a").on("click", function(){
         $("#sidebar #components").find("li.active").removeClass("active");
         $(this).parent('li').addClass("active");
+        // $("#bbb").attr("class","dropdown-toggle");
+        // $("#bbb").attr("aria-expanded","true");
+
       });
     });
+    // $(document).ready(function() {
+    //   $("#health").parent('li').addClass("active");
+    //  // $("#bbb").attr("aria-expanded","true");
+    //  // $("#bbb").attr("class","dropdown-toggle"); //class="
+    // });
+
     </script>
     {% block extrahead %}
     {% endblock %}
@@ -41,15 +50,15 @@
         <ul id="components" class="list-unstyled">
           <li class="active"> <a href="#">Home</a> </li>
           <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Projects</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
+            <a href="#pageSubmenu" id="bbb" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">Projects</a>
+            <ul class="collapse list-unstyled" id="pageSubmenu" >
               <li> <a href="{{ url_for('digits') }}">Digit Recognizer</a> </li>
-              <li> <a href="{{ url_for('health_scores') }}">Health Visualization</a> </li>
+              <li > <a href="{{ url_for('health_scores') }}" >Health Visualization</a> </li>
               <li> <a href="#">Flask Site</a> </li>
             </ul>
           </li>
           <li> <a href="https://github.com/mo0f">GitHub</a> </li>
-          <li> <a href="#">Linkedin</a> </li>
+          <li> <a href="#" id="health">Linkedin</a> </li>
         </ul>
       </nav>
       <!-- Page Content -->
