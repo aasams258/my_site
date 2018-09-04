@@ -1,3 +1,4 @@
+<!-- https://www.sitepoint.com/how-to-simulate-mobile-devices-with-device-mode-in-chrome/ -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- Bootstrap CSS -->
+    <!-- https://bootstrapious.com/p/bootstrap-sidebar -->
+    <!-- https://mladenplavsic.github.io/bootstrap-navbar-sidebar/# -->
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -50,6 +54,7 @@
         <ul id="components" class="list-unstyled">
           <li class="active"> <a href="#">Home</a> </li>
           <li>
+              <!-- https://github.com/almasaeed2010/AdminLTE/issues/1806 -->
             <a href="#pageSubmenu" id="bbb" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">Projects</a>
             <ul class="collapse list-unstyled" id="pageSubmenu" >
               <li> <a href="{{ url_for('digits') }}">Digit Recognizer</a> </li>
