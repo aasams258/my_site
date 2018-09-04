@@ -29,8 +29,8 @@ The page to draw a digit and predict with MNIST layers.
 
 If RPC to ML-Engine spin up time is too long, maybe host model locally.
 '''
-@app.route('/draw', methods=['GET', 'POST'])
-def draw():
+@app.route('/digits', methods=['GET', 'POST'])
+def digits():
     if request.method == 'POST':
         dataURI = request.data.decode('UTF-8')
         image_data = re.sub('^data:image/png;base64,', '', dataURI)

@@ -43,12 +43,12 @@
           <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Projects</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
-              <li> <a href="#">Digit Recognizer</a> </li>
-              <li> <a href="#">Health Visualization</a> </li>
-              <li> <a href="#">This Site</a> </li>
+              <li> <a href="{{ url_for('digits') }}">Digit Recognizer</a> </li>
+              <li> <a href="{{ url_for('health_scores') }}">Health Visualization</a> </li>
+              <li> <a href="#">Flask Site</a> </li>
             </ul>
           </li>
-          <li> <a href="#">GitHub</a> </li>
+          <li> <a href="https://github.com/mo0f">GitHub</a> </li>
           <li> <a href="#">Linkedin</a> </li>
         </ul>
       </nav>
