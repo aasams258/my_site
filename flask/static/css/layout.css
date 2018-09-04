@@ -1,162 +1,96 @@
-/*
-	DEMO STYLE
-	https://bootstrapious.com/p/bootstrap-sidebar
-*/
+/* Design in part from Bootstrap Dashboard Tutorial     */
+  .mobile-only {
+      display: none;
+  }
 
-@import "https://fonts.googleapis.com/css?family=Lato";
-body {
-    font-family: 'Lato', sans-serif;
-    background: #ffffff;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #000000;
-}
+  @media only screen and (max-width: 700px) {
+    /* show everything with the hamburger class */
+    /* hide all the nav-buttons */
+    .mobile-only {
+      display: block;
+    }
+  }
 
-@import "https://fonts.googleapis.com/css?family=Lato";
-p {
-    font-family: 'Lato', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #000000;
-}
+  body {
+    font-size: .875rem;
+  }
+  
+  .feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+  }
+  
+  /*
+   * Sidebar
+   */
+  
+   .sidebar .bio-pic {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
 
-a,
-a:hover,
-a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.navbar {
-    padding: 15px 10px;
-    background: #fff;
-    border: none;
-    border-radius: 0;
-    margin-bottom: 40px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.line {
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
-}
-
-/* ---------------------------------------------------
-    SIDEBAR STYLE
------------------------------------------------------ */
-
-.wrapper {
-    display: flex;
-    width: 100%;
-}
-
-.bio-pic {
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
-.bio p{
-	margin-top: 5px;
-	text-align: center;
-	font-size: .75em;
-    font-weight: 300;
-    line-height: .75em;
-	color: #fff;
-	
-}
-#sidebar {
-    width: 250px;
+  .sidebar .bio p{
+      margin-top: 5px;
+      text-align: center;
+      font-size: .75em;
+  }
+  .sidebar {
     position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
-    height: 100vh;
-    z-index: 999;
-    background: #64a1f4;
-    color: #fff;
-    transition: all 0.3s;
-}
-
-#sidebar .sidebar-header {
-	padding: 20px;
-	text-align: center;
-    background: #64a1f4;
-}
-
-#sidebar ul.components {
-}
-
-#sidebar ul p {
-    color: #fff;
-    padding: 10px;
-}
-
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
-    display: block;
-}
-
-#pageSubmenu li a{
-    padding-left: 40px;
-}
-#sidebar ul li a:hover {
-    color: #3b7dd8;
-    background: #fff;
-}
-
-#sidebar ul li.active>a {
-    color: #fff;
-    background: #e90d0d;
-}
-
-a[data-toggle="collapse"] {
+    height:100%
+    z-index: 100; /* Behind the navbar */
+    padding: 48px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  }
+  
+  .sidebar-sticky {
     position: relative;
-}
-
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
-
-ul ul a {
-    font-size: 0.9em;
-    padding-left: 30px;
-    background: #3b7dd8;
-}
-
-a.article,
-a.article:hover {
-    background: #3b7dd8;
-    color: #fff;
-}
-
-/* ---------------------------------------------------
-    CONTENT STYLE
------------------------------------------------------ */
-
-#content {
-    width: calc(100% - 250px);
-    padding: 40px;
-    min-height: 100vh;
-    transition: all 0.3s;
-    position: absolute;
     top: 0;
-    right: 0;
-}
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  }
+  
+  .sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+  }
 
-#content.active {
-    width: 100%;
-}
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
+  
+  .sidebar .nav-link.active {
+    color: #007bff;
+  }
+  
+  .sidebar .nav-link:hover .feather,
+  .sidebar .nav-link.active .feather {
+    color: inherit;
+  }
+  
+  .sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+  }
+
+  /*
+   * Navbar
+   */
+  
+  .navbar-brand {
+    /* padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem; */
+    text-align: center;
+    background-color: rgba(0, 0, 0, .25);
+
+  }
+
+  /*
+   * Body
+   */
+  [role="main"] {
+    padding-top: 30px; /* Space for fixed navbar */
+  }

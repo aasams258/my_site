@@ -6,11 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
     <!-- Bootstrap CSS -->
-    <!-- https://bootstrapious.com/p/bootstrap-sidebar -->
-    <!-- https://mladenplavsic.github.io/bootstrap-navbar-sidebar/# -->
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -19,59 +15,77 @@
     <!-- My CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
     <script type="text/javascript">
-    $(document).ready(function() {
-      $("#components a").on("click", function(){
-        $("#sidebar #components").find("li.active").removeClass("active");
-        $(this).parent('li').addClass("active");
-        // $("#bbb").attr("class","dropdown-toggle");
-        // $("#bbb").attr("aria-expanded","true");
-
-      });
-    });
-    // $(document).ready(function() {
-    //   $("#health").parent('li').addClass("active");
-    //  // $("#bbb").attr("aria-expanded","true");
-    //  // $("#bbb").attr("class","dropdown-toggle"); //class="
-    // });
-
-    </script>
-    {% block extrahead %}
-    {% endblock %}
-  </head>
-  <body>
-    <div class="wrapper">
-      <nav id="sidebar">
-        <div class="sidebar-header">
-          <h3>Arthur Sams</h3>
+      $(document).ready(function() {
+        $("#components a").on("click", function(){
+          $("#sidebar #components").find("li.active").removeClass("active");
+          $(this).parent('li').addClass("active");  
+        });
+      });          
+      </script>
+      {% block extrahead %}
+      {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+        <div class="row">
+          <nav class="navbar navbar-dark fixed-top bg-dark p-0 shadow d-flex flex-nowrap">
+              <a class="navbar-brand col-md-2 " href="#">Arthur Sams</a>
+              <div class="dropdown mobile-only col-md-2">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Menu
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Home</a>
+                          <a class="dropdown-item" href="#">Projects</a>
+                          <a class="dropdown-item" href="#">Github</a>
+                          <a class="dropdown-item" href="#">LinkedIn</a>
+                      </div>
+              </div>
+          </nav>
         </div>
-        <div class="bio-pic text-center">
-            <img src="static/img/arthur_headshot.png" class="img-circle" width="150" height="150">
         </div>
-        <div class="bio">
-          <p> Math and CS, Cornell University  <p>
-          <p> Xoogler and Adventurer </p>
-        </div>
-        <ul id="components" class="list-unstyled">
-          <li class="active"> <a href="#">Home</a> </li>
-          <li>
-              <!-- https://github.com/almasaeed2010/AdminLTE/issues/1806 -->
-            <a href="#pageSubmenu" id="bbb" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">Projects</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu" >
-              <li> <a href="{{ url_for('digits') }}">Digit Recognizer</a> </li>
-              <li > <a href="{{ url_for('health_scores') }}" >Health Visualization</a> </li>
-              <li> <a href="#">Flask Site</a> </li>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <div class="bio-pic text-center">
+                  <img src="static/img/arthur_headshot.png" class="img-circle" width="150" height="150">
+              </div>
+              <div class="bio">
+                <p> Math and CS, Cornell University  <p>
+                <p> Xoogler and Adventurer </p>
+              </div>
+              <li class="nav-item">
+                <a class="nav-link active" href="{{ url_for('homepage') }}"> Home </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('health_scores') }}">
+                      Health Scores Project
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('digits') }}">
+                      MNIST CNN Project
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="https://github.com/mo0f"> Github </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#"> LinkedIn </a>
+              </li>
             </ul>
-          </li>
-          <li> <a href="https://github.com/mo0f">GitHub</a> </li>
-          <li> <a href="#" id="health">Linkedin</a> </li>
-        </ul>
-      </nav>
-      <!-- Page Content -->
-      <div id="content">
-        <div class="container-fluid">
-          {% block content %}{% endblock %}
-        </div>
-      </div>
+          </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <div class="row">
+                  <div class="col"> {% block content %}{% endblock %} </div>
+                </div>
+            </div>
+        </main>
     </div>
-  </body>
+      </div>
+    </body>
 </html>
