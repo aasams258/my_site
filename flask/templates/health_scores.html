@@ -8,15 +8,15 @@
       of a restaurant in terms of reviews and price.</p>
 
   <h2> The Data </h2>
-  <p> The Public Health Dataset has inspections for over 44,000 places that serve food in LA County - an area of 10 million people.
-      The first challenge was to process this data. Yelp's API only allows 5,000 calls per day, and it takes two queries to get the full restaurant details. 
+  <p> The Public Health Dataset has inspections for over 44,000 places that serve food in LA County - an area of 10 million people. </p>
+  <p> Although it is not a large dataset, the first challenge was to process this data. Yelp's API only allows 5,000 calls per day, and it takes two queries to get the full restaurant details. 
       For the sake of time, I reduced the size of the dataset by focusing on independently owned local restaurants. </p>
 
-  <p> I filtered out ~25,000 markets (Von's, Whole Foods, Convenience Stores) and chains (KFC, Subway, Sizzler). 
-      Hopefully this makes the data more interesting and diverse. I assumed franchises would have stringent
-      policies to ensure high scores to protect brand image (this assumption can be investigated at a later date). </p>
+  <p> I filtered out ~25,000 markets (Von's, Whole Foods, Convenience Stores) and restaurant chains (KFC, Subway, Sizzler) to focus on independently owned local businesses. 
+      I assumed franchises would have stringent policies to ensure high scores to protect brand image (this assumption can be investigated at a later date).
+      Hopefully this makes the data more interesting, diverse, and reflective of the places I like to eat. </p>
 
-  <p> The final dataset contains approxmitely 16,000 restaurants across all zip codes in LA county.</p>
+  <p> The final dataset contains approximately 16,000 restaurants across all zip codes in LA county.</p>
   <h2> Health Scores and Grades </h2>
 
   <p> The health grade distribution shows that A grades are the majority, with B taking about 1/5th of the share, and C's being rare at 2%. </p>
@@ -33,59 +33,71 @@
     <li> 70 to 79 receives <span style="color: #FB9517"> Grade C</span></li>
     <li> 0 to 69 does not get a letter, but a card displaying the score instead.</li>
   </ul>
-  <p> A restaurant scoring under 70 twice within 12 months are subject to closure, and any major infractions may require closure regardless of score.</p>
+  <p> A restaurant scoring under 70 twice within 12 months is subject to closure, and any major infractions may require closure - regardless of score.</p>
   
   <h3> Score Distribution </h3>
   <img src="static/img/health_project/health_score_barplot.png" width="800" height="400" class="center">
-  <p> Instead of a single bell curve, the score distribution looks tri-modal with peaks occuring around 97, 85, and 76, each having a slight right-skew and an edge peak.
+  <p> Instead of a single bell curve, the score distribution looks tri-modal with peaks occurring around 97, 85, and 76, each having a slight right-skew and an edge peak.
       Perhaps the multi-modality reflects that there are different types of restaurant owners, each with different views on acceptable sanitation. </p>
 
   <!-- Note to self: Maybe plot QQ Probability/ Normality Test? -->
   <p> The edge peak boundaries between grades are curious, look at the large differences between 90-89 and 80-79.
-      It seems like inspectors are using their discretion to push boarderline cases to the next highest grade.</p>
+      It seems like inspectors are using their discretion to push borderline cases to the next highest grade.</p>
 
-  <p> Also values under 70 are rare, there is only one occurance (at 65). 
-      This is most likely due to the threat of closure for low scores leading restaurants to request a re-inspection if they did poorly.
-      My data only includes the most recent inspection, but after looking through the complete dataset again there are only around 5 cases of below 70.</p>
+  <p> Also values under 70 are rare, there is only one occurrence (at 65). 
+      This is likely due to the threat of closure leading restaurants to request a re-inspection if they did poorly.
+      My data only includes the most recent inspection, but after looking through the unedited dataset there are only around 5 cases of below 70.</p>
   
-  <h4> Do health scores correlate to higher yelp reviews? </h4>
+  <h2> Do health scores correlate to higher Yelp reviews? </h2>
   <img src="static/img/health_project/avg_yelp_v_health_scores.png" width="800" height="500" class="center">
-    <p> There seems to be a slight positive correlation between health score and average yelp review. It is a modest ~1/3 of a star increase from a C and an A.</p>
+    <p> There looks to be a positive correlation between health score and average Yelp review. The average Yelp review seems to increase by around a third of a star
+        from the C's to the A's </p>
     
     <p> We saw from the grade distributions that there is not much data in the C range (2%), if we had more points the averages may show less variance and converge
         towards the regression line. </p>
 
     <img src="static/img/health_project/yelp_v_health_scores.png" width="800" height="500" class="center">
     <p> Looking at a normalized distribution of stars it seems higher health scores have more 4 star and fewer 3 star restaurants.
-        4 stars are positvely correlated with increasing health score (R=0.56) and 3's are negativly correlated (R=0.70). 
-        All other scores are relatively evenly distributed and make up less than 20% of reviews. 
-        This seems to indicate that higher health scores have a minimal impact on restaurant experience,
-        at most pushing a borderline 4 star restaurant into 4 territory.</p>
+        4 stars are positively correlated with increasing health score (R=0.56) and 3's are negatively correlated (R=0.70). 
+        All other scores are relatively evenly distributed and make up less than 20% of reviews. The flat trends in 1, 2, and 5's
+        seems to suggest being cleaner might move a borderline quality restaurant up a star, but will not on its own create a 5 star restaurant.
+    </p>
 
-  <h3>Health Score and Popularity</h3>
+  <h2>Health Score and Popularity</h2>
   <p> Yelp's API offers no metric for popularity, but we can look at the number of customer reviews as a proxy for popularity.
-      Perhaps people avoid low health grade restaurants because they have a perception of being dirty. 
+      Perhaps people see the health grade and avoid coming to less sanitary scoring establishments.
   </p>
   <img src="static/img/health_project/review_vs_heatlh.png" width="800" height="400" class="center">
-  <p> The review count looks to be downward trending with health score, but it is hard to notice without the regression line.  
-      The correlation coefficient is low, and the points look like noise. It doesn't seem like higher health grades attract more customers. </p>
+  <p> Without the regression line, it's hard to notice the downward trend. The correlation coefficient is low,
+      and the points look like noise based around 200. </p>
+  <!-- Perhaps try to plot the review counts frequency and see if it is gaussian? -->
+  <p> It doesn't seem like higher health grades attract more customers, but we do not have a way to measure repeat customers. </p>
 
-  <h3>Health Grade and Price</h3>
-  <p> Yelp rates the price in terms of dollar signs. The scale ranges from $ being around $10 a meal to $$$$ which is the most expensive at over $60 per person.</p>
-  <p> The idea is a more expensive restaurant will tend to be cleaner.</p>
-  <img src="static/img/health_project/price_barplot2.png" width="800" height="400" class="center">
-  <p> The breakdown seems to indicate that as grade increases the share of $$$ and $$$$ restaurants increase. 
-      However C restaurants have the largest percent of $$$$ even though there are only 4 compared to A which have 114. There are few C that this is enough to boost it
-      up. </p>
+  <h2>Health Grade and Price</h2>
+  <p> Yelp rates the price in terms of dollar signs. The scale ranges from <span style="color: #03a503"> $ </span> costing around $10
+      to the most expensive <span style="color: #03a503"> $$$$ </span> at over $60 per person.</p>
 
+  <img src="static/img/health_project/price_barplot.png" width="800" height="400" class="center">
+  <p> The distribution of prices seems to indicate that as grade increases the share of <span style="color: #03a503"> $$$ </span> and <span style="color: #03a503"> $$$$ </span> restaurants increase. </p>
 
+  <p> There are only 4 <span style="color: #03a503"> $$$$ </span> C restaurants (compared to A's which have 114).
+      Given the scarcity of C's this gives them the highest percent share of the most expensive restaurants. This seems like an outlier.
+      If there were more C restaurants in the dataset, I have a feeling this lead would decrease. 
+  </p>
 
-  <p> Let's look at the categories of restaurants and how they fair on average</p>
+  <h3>Health Grade and Food Category </h3>
+  <p> Let's look at the categories of restaurants and how they fair on average. Note a restaurant can belong to multiple categories, and be double counted.</p>
   <img src="static/img/health_project/category_grade_barplot.png" width="800" height="400" class="center">
-  <h2> Future</h2>
-  It would be interesting to compare large chains against one another.
+  
+  <h2> Conclusion </h2>
+  <p> Overall it seems hard to conclude that higher health scores across the board lead to more and higher reviews and a pricier/premium dining experience. </p> 
+  <p> Following health code should be a basic task that any restaurateur can abide.</p>
+  <p> In the end it is the detail oriented restaurateur who strives to deliver a perfect experience that would have a high scoring A Grade,
+  not the A Grade that makes the great dining experience.</p> 
 
   <footer>
-        Sources: Public Health http://publichealth.lacounty.gov/eh/misc/ehpost.htm
+        <i>Sources: </i>
+        <br> <i>Public Health Data </i>http://publichealth.lacounty.gov/eh/misc/ehpost.htm
+        <br> <i>Yelp.com</i>
   </footer>
 {% endblock %}

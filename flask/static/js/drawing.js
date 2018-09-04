@@ -45,7 +45,6 @@ function pencil () {
   // This is called when you start holding down the mouse button.
   // This starts the pencil drawing.
   this.mousedown = function (ev) {
-    // TODO make it so a press down draws a dot.
       context.beginPath();
       context.moveTo(ev._x, ev._y);
       tool.started = true;
@@ -127,7 +126,8 @@ function submitCanvas() {
         cell1.innerHTML = json.prediction[i][0];
         cell2.innerHTML = Number(json.prediction[i][1]).toFixed(2);
       }
-      document.getElementById("moded").src = json.img_uri;
+      document.getElementById("transformed").style.visibility = "visible";
+      document.getElementById("transformed").src = json.img_uri;
    }
    document.getElementById("submitBtn").disabled = false;    
   })

@@ -8,9 +8,10 @@
 {% block content %}
   <h1>Digit Recognizer</h1>
   <br>
-  <p> This project uses a Convolutional Neural Network (CNN) programmed in Tensorflow to recognize a digit drawn in an HTML5 canvas.</p>
-  <p> Give it a try by writing a numeral from 0-9, in the box below and click submit. </p>
-  <p> Be patient as the first input will take a while as the machine learning server will need to spin up.</p>
+  <p> This project uses a Convolutional Neural Network (CNN) programmed in Tensorflow to identify a user drawn digit.</p>
+  <p> To try it, draw a numeral from <b>0-9</b> in the box below and click submit. </p>
+  <p> Please be patient as the first input will take some time (~30s) as the machine learning server needs to spin up.</p>
+
   <div class="text-center">
     <div id="container">
       <canvas id="imageView" width="84" height="84" style="border: 1px solid #000">
@@ -29,34 +30,36 @@
       </tr>
       <tr><td>?</td> <td>?</td></tr>
     </table>
+  <h2> The Model </h2>
 
-  <p> The model was trained on batches of 100 images for 20,000 iterations, resulting in a 97% accuracy. </p>
-
-  <p> When I first tested this page, I found the accuracy was very poor. It was particulary bad at guessing <i> 7 </i> and <i> 1 </i>. 
-      My initial hunch was this is a domain adapaton problem: the input from canvas tool did not look close enough to the training data.
+  <p> The model is from the Tensorflow MNIST tutorial. It consists of two sets of convolution with ReLU activation and max pooling,
+    a fully connected layer with dropout, then a logits layer for the 10 possible output classes.</p>
+  <img src="static/img/digits_project/mnist_cnn.png" width="420" height="140" class="center">
+  <p> It was trained on batches of 100 images for 20,000 iterations taking about 1 hour, resulting in a 97% accuracy. </p>
+  <p> When first tested with my own hand drawn images the accuracy was very poor. It was particulary bad at guessing <i> 7's </i> and <i> 1's </i>. 
+      This sounded like a domain adapaton problem: the input from canvas tool did not look close enough to the training data.
   </p>
-  <p> I examined the training data, and preprocessed the canvas data by cropping the drawing, adding white space around the crop,
-      and then rescaling the image to 28x28 before creating the 784 dimensional vector. </p>
-  <p> After you draw this is what the input looks like:</p>
-  <img id="moded" src="" style="border-style: solid;border-width: 3px; border-color: red;"/> 
-
-  <p> To really visualize this try drawing in the corner of the prediction box to see the centering in action. </p>
-  <p> This was much closer to the training data, and boosted my accuracy.</p>
+  <p> The training data consisted of centered digits. To be consistent the drawn images needed preprocessing. 
+      The accuracy soared after identifying where to crop using a bounding box, padding with extra white space to help preserve the aspect ratio,
+      then scaling the image to the required 28x28 </p>
+  
+  <p> For a clear example of the transformation, try drawing in the corner of the prediction box then clicking submit to see the image below. </p>
+  <img id="transformed" src="" style="border-style: solid;border-width: 3px; border-color: red; visibility: hidden;"/> 
 
   <h2> Infrastructure </h2>
 
-  <p> While this is currently a toy project to play with Google's ML engine and Tensorflow.
-      In a more production setting we would like to reuse the users input and put it into the training set, rolling out
-      new models as we collect more data.
+  <p> While this is a toy project to play with Google's ML engine and Tensorflow,
+      in a production setting user's input would be saved to enlarge the training set. As more data is collected, new models could be trained
+      leading to improved domain adaptation.
   </p>
   <br>
-  <img src="static/img/ml_diagram_color.png" width="420" height="180" class="center">
+  <img src="static/img/digits_project/ml_infra_diagram.png" width="420" height="180" class="center">
   <br>
   <ol>
     <li> The user draws a digit on the canvas element, which is sent to the Flask backend. </li>
-    <li> The backend pre-processes the data and converts it to a 784 dimensional vector, which is sent to the ML Engine instance for classification. </li>
-    <li> The prediction is returned to the user, who can verify the input </li>
-    <li> The verified input and the original unprocessed data are archived to a database </li>
-    <li> The ML engine can retrain using the new user labeled inputs to create an improved new model with more domain adaptation.</li>
+    <li> Next the backend pre-processes the data and converts it to a 784 dimensional vector, which is sent to the ML Engine instance for classification. </li>
+    <li> Then the prediction is returned to the user, who can verify the input. </li>
+    <li> The verified input and the original unprocessed data are archived to a database. </li>
+    <li> Later the ML engine can retrain using the new user labeled inputs to create an improved web oriented model.</li>
   </ol> 
   {% endblock %}
