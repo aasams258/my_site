@@ -1,5 +1,14 @@
 {% extends "layout.html" %}
 
+{% block extrahead %}
+  <script>
+    $(document).ready(function() {
+        $("#menu_items").find("nav-link active").removeClass("active");
+        $('#projects').addClass("active");  
+    });    
+  </script>  
+{% endblock %}
+
 {% block content %}
 
 <h1> Projects </h1>
@@ -10,7 +19,8 @@
 <a href="{{ url_for('health_scores') }}"> Health Scores Project </a>
 
 <h2> MNIST Classifier</h2>
-<p> This project, I wanted to use ML-Engine and Tensorflow. </p>
+<p> This project, I wanted to use ML-Engine and Tensorflow. I got to learn Tensorflow Estimators, which greatly improve the readability and speed of writing TF.
+    I had to modify the MNIST tutorial in order to save the model and feed prediction inputs, but other than that the model is mostly the same as the tutorial. </p>
 <a href="{{ url_for('digits') }}"> MNIST Classifier</a>
 
 <h3> More to come...</h3>
