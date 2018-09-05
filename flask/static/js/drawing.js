@@ -32,12 +32,17 @@ if(window.addEventListener) {
       canvas.addEventListener('mousemove', canvasHandler, false);
       canvas.addEventListener('mouseup', canvasHandler, false);
       canvas.addEventListener('mouseleave', canvasHandler, false);
+
+      canvas.addEventListener('touchstart', canvasHandler, false);
+      canvas.addEventListener('touchmove', canvasHandler, false);
+      canvas.addEventListener('touchend', canvasHandler, false);
     }
     init();
   }, false); 
 }
-// This painting tool works like a drawing pencil which tracks the mouse 
-// movements.
+
+// This painting tool works like a drawing pencil which tracks the mouse/touch movements.
+// There is a probably a better way to refactor the touch/mouses.
 function pencil () {
   var tool = this;
   this.started = false;
@@ -51,9 +56,29 @@ function pencil () {
       s_x = ev._x;
       s_y = ev._y;
   };
+  // When you begin the touch.
+  this.touchstart = function (ev) {
+    context.beginPath();
+    context.moveTo(ev._x, ev._y);
+    tool.started = true;
+    s_x = ev._x;
+    s_y = ev._y;
+  };
 
   // This function is called every time you move the mouse.
   this.mousemove = function (ev) {
+    if (tool.started) {
+      if (ev._x == s_x && ev._y == s_y) {
+        context.lineTo(ev._x + 1, ev._y + 1);
+        context.stroke();
+      } else {
+        context.lineTo(ev._x, ev._y);
+        context.stroke();
+      }
+    }
+  };
+  // This function is called every time you touch.
+  this.touchmove = function (ev) {
     if (tool.started) {
       if (ev._x == s_x && ev._y == s_y) {
         context.lineTo(ev._x + 1, ev._y + 1);
@@ -72,23 +97,34 @@ function pencil () {
       tool.started = false;
     }
   };
+
+  // This is called when you release the touch.
+  this.touchend = function (ev) {
+    if (tool.started) {
+      tool.mousemove(ev);
+      tool.started = false;
+    }
+  };
+
   this.mouseleave = function (ev) {
     if (tool.started) {
       tool.started = false;
     }
-  };
+};
+
 }
 
 // The general-purpose event handler. This function just determines the mouse 
 // position relative to the canvas element.
 function canvasHandler (ev) {
+  if (ev.touches && ev.touches[0]) {
+    ev.clientX = ev.touches[0].clientX;
+    ev.clientY = ev.touches[0].clientY;
+  } 
   // https://stackoverflow.com/questions/17130395/real-mouse-position-in-canvas
   var rect = canvas.getBoundingClientRect();
   ev._x = (ev.clientX - rect.left) / (rect.right - rect.left) * canvas.width ;
   ev._y= (ev.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height ;
-  console.log("X:" +  ev._x);
-  console.log("Y:" + ev._y);
- 
   // Call the event handler of the tool.
   var func = pencil[ev.type];
   if (func) {
@@ -108,7 +144,7 @@ function clearCanvas() {
 function submitCanvas() {
   document.getElementById("submitBtn").disabled = true;
   var data = canvas.toDataURL('image/png')
-  fetch("/draw", {body: data, method: 'POST'}).then(response => response.json()).then(json => {
+  fetch("/digits", {body: data, method: 'POST'}).then(response => response.json()).then(json => {
     var table = document.getElementById("topK");
 
     // Incase the submit button is pressed multiple times.
