@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1> Projects </h1>
+<p> These are two projects I recently finished, their purposes are to explore new technology, not make a critical contribution.</p>
+
+<h2>Health Scores </h2>
+<p> In the health score project, I used the Yelp API with Asynchronous calls to scrape restaurant data, which was then stored in an SQL database for analytics.</p>
+<a href="{{ url_for('health_scores') }}"> Health Scores Project </a>
+
+<h2> MNIST Classifier</h2>
+<p> This project, I wanted to use ML-Engine and Tensorflow. </p>
+<a href="{{ url_for('digits') }}"> MNIST Classifier</a>
+
+<h3> More to come...</h3>
+I will have a few more tensorflow projects upcoming.
+
+{% endblock %}

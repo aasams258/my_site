@@ -1,8 +1,14 @@
 {% extends "layout.html" %}
 
 {% block extrahead %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/drawing.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/digits.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/drawing.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/digits.css') }}">
+  <script>
+    $(document).ready(function() {
+        $("#menu_items").find(".nav-link active").removeClass("active");
+        $('#digits').addClass("active");  
+    });    
+  </script>  
 {% endblock %}
 
 {% block content %}

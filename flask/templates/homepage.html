@@ -1,4 +1,12 @@
 {% extends "layout.html" %}
+{% block extrahead %}
+  <script>
+    $(document).ready(function() {
+        $("#menu_items").find("nav-link active").removeClass("active");
+        $('#home').addClass("active");  
+    });    
+  </script>  
+{% endblock %}
 
 {% block content %}
 <h1> Welcome </h1>

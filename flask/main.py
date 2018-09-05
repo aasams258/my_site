@@ -18,6 +18,13 @@ def index():
     return render_template('homepage.html')
 
 '''
+General Landing Page for projects.
+'''
+@app.route('/projects')
+def projects():
+    return render_template('projects.html')
+
+'''
 The page on LA county health scores.
 '''
 @app.route('/health_scores')

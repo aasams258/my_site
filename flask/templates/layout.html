@@ -14,14 +14,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <!-- My CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $("#components a").on("click", function(){
-          $("#sidebar #components").find("li.active").removeClass("active");
-          $(this).parent('li').addClass("active");  
-        });
-      });          
-      </script>
       {% block extrahead %}
       {% endblock %}
     </head>
@@ -31,15 +23,15 @@
           <nav class="navbar navbar-dark fixed-top bg-dark p-0 shadow d-flex flex-nowrap">
               <a class="navbar-brand col-md-2 " href="#">Arthur Sams</a>
               <div class="dropdown mobile-only col-md-2">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Menu
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="#">Home</a>
-                          <a class="dropdown-item" href="#">Projects</a>
-                          <a class="dropdown-item" href="#">Github</a>
-                          <a class="dropdown-item" href="#">LinkedIn</a>
-                      </div>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Menu
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="{{ url_for('index') }}">Home</a>
+                  <a class="dropdown-item" href="{{ url_for('projects') }}">Projects</a>
+                  <a class="dropdown-item" href="https://github.com/mo0f">Github</a>
+                  <a class="dropdown-item" href="https://www.linkedin.com/in/arthur-sams-7763758b">LinkedIn</a>
+                </div>
               </div>
           </nav>
         </div>
@@ -48,7 +40,7 @@
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
-            <ul class="nav flex-column">
+            <ul class="nav flex-column" id="menu_items">
               <div class="bio-pic text-center">
                   <img src="static/img/arthur_headshot.png" class="img-circle" width="150" height="150">
               </div>
@@ -57,15 +49,15 @@
                 <p> Xoogler and Adventurer </p>
               </div>
               <li class="nav-item">
-                <a class="nav-link active" href="{{ url_for('index') }}"> Home </a>
+                <a class="nav-link" id="home" href="{{ url_for('index') }}"> Home </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('health_scores') }}">
+                  <a class="nav-link" id="health_scores" href="{{ url_for('health_scores') }}">
                       Health Scores Project
                   </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('digits') }}">
+                  <a class="nav-link" id="digits" href="{{ url_for('digits') }}">
                       MNIST CNN Project
                   </a>
               </li>
