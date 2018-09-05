@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% set v_global = "health" %}
 {% block content %}
   <h1>Los Angeles Health Scores Analysis</h1>
 
@@ -20,7 +19,7 @@
   <h2> Health Scores and Grades </h2>
 
   <p> The health grade distribution shows that A grades are the majority, with B taking about 1/5th of the share, and C's being rare at 2%. </p>
-  <img src="static/img/health_project/grade_pie_chart.png" width="300" height="300" class="center">
+  <img src="static/img/health_project/grade_pie_chart.png" width="300" height="300" class="mx-auto d-block">
 
   <h3> How Grading Works </h3>
   <p> A facility starts with a score of 100 points and for each code violation loses points.</p>
@@ -36,7 +35,7 @@
   <p> A restaurant scoring under 70 twice within 12 months is subject to closure, and any major infractions may require closure - regardless of score.</p>
   
   <h3> Score Distribution </h3>
-  <img src="static/img/health_project/health_score_barplot.png" width="800" height="400" class="center">
+  <img src="static/img/health_project/health_score_barplot.png" width="800" height="400" class="mx-auto d-block">
   <p> Instead of a single bell curve, the score distribution looks tri-modal with peaks occurring around 97, 85, and 76, each having a slight right-skew and an edge peak.
       Perhaps the multi-modality reflects that there are different types of restaurant owners, each with different views on acceptable sanitation. </p>
 
@@ -49,14 +48,14 @@
       My data only includes the most recent inspection, but after looking through the unedited dataset there are only around 5 cases of below 70.</p>
   
   <h2> Do health scores correlate to higher Yelp reviews? </h2>
-  <img src="static/img/health_project/avg_yelp_v_health_scores.png" width="800" height="500" class="center">
+  <img src="static/img/health_project/avg_yelp_v_health_scores.png" width="800" height="500" class="mx-auto d-block">
     <p> There looks to be a positive correlation between health score and average Yelp review. The average Yelp review seems to increase by around a third of a star
         from the C's to the A's </p>
     
     <p> We saw from the grade distributions that there is not much data in the C range (2%), if we had more points the averages may show less variance and converge
         towards the regression line. </p>
 
-    <img src="static/img/health_project/yelp_v_health_scores.png" width="800" height="500" class="center">
+    <img src="static/img/health_project/yelp_v_health_scores.png" width="800" height="500" class="mx-auto d-block">
     <p> Looking at a normalized distribution of stars it seems higher health scores have more 4 star and fewer 3 star restaurants.
         4 stars are positively correlated with increasing health score (R=0.56) and 3's are negatively correlated (R=0.70). 
         All other scores are relatively evenly distributed and make up less than 20% of reviews. The flat trends in 1, 2, and 5's
@@ -67,7 +66,7 @@
   <p> Yelp's API offers no metric for popularity, but we can look at the number of customer reviews as a proxy for popularity.
       Perhaps people see the health grade and avoid coming to less sanitary scoring establishments.
   </p>
-  <img src="static/img/health_project/review_vs_heatlh.png" width="800" height="400" class="center">
+  <img src="static/img/health_project/review_vs_heatlh.png" width="800" height="400" class="mx-auto d-block">
   <p> Without the regression line, it's hard to notice the downward trend. The correlation coefficient is low,
       and the points look like noise based around 200. </p>
   <!-- Perhaps try to plot the review counts frequency and see if it is gaussian? -->
@@ -77,7 +76,7 @@
   <p> Yelp rates the price in terms of dollar signs. The scale ranges from <span style="color: #03a503"> $ </span> costing around $10
       to the most expensive <span style="color: #03a503"> $$$$ </span> at over $60 per person.</p>
 
-  <img src="static/img/health_project/price_barplot.png" width="800" height="400" class="center">
+  <img src="static/img/health_project/price_barplot.png" width="800" height="400" class="mx-auto d-block">
   <p> The distribution of prices seems to indicate that as grade increases the share of <span style="color: #03a503"> $$$ </span> and <span style="color: #03a503"> $$$$ </span> restaurants increase. </p>
 
   <p> There are only 4 <span style="color: #03a503"> $$$$ </span> C restaurants (compared to A's which have 114).

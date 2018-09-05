@@ -34,7 +34,7 @@
 
   <p> The model is from the Tensorflow MNIST tutorial. It consists of two sets of convolution with ReLU activation and max pooling,
     a fully connected layer with dropout, then a logits layer for the 10 possible output classes.</p>
-  <img src="static/img/digits_project/mnist_cnn.png" width="420" height="140" class="center">
+  <img src="static/img/digits_project/mnist_cnn.png" width="420" height="140" class="mx-auto d-block">
   <p> It was trained on batches of 100 images for 20,000 iterations taking about 1 hour, resulting in a 97% accuracy. </p>
   <p> When first tested with my own hand drawn images the accuracy was very poor. It was particulary bad at guessing <i> 7's </i> and <i> 1's </i>. 
       This sounded like a domain adapaton problem: the input from canvas tool did not look close enough to the training data.
@@ -53,7 +53,7 @@
       leading to improved domain adaptation.
   </p>
   <br>
-  <img src="static/img/digits_project/ml_infra_diagram.png" width="420" height="180" class="center">
+  <img src="static/img/digits_project/ml_infra_diagram.png" width="420" height="180" class="mx-auto d-block">
   <br>
   <ol>
     <li> The user draws a digit on the canvas element, which is sent to the Flask backend. </li>
