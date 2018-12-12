@@ -1,4 +1,13 @@
 {
     "python.linting.pylintEnabled": false,
-    "python.pythonPath": "/usr/bin/python2.7"
+    "python.pythonPath": "/usr/bin/python2.7",
+    "spellright.language": [
+        "en"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext",
+        "html"
+    ]
 }

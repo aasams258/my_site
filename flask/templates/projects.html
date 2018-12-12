@@ -12,18 +12,23 @@
 {% block content %}
 
 <h1> Projects </h1>
-<p> These are two projects I recently finished, their purposes are to explore new technology, not make a critical contribution.</p>
+<p> These are some public projects I have recently worked on, I choose them to explore new tech and frameworks I am interested in.</p>
 
-<h2>Health Scores </h2>
-<p> In the health score project, I used the Yelp API with Asynchronous calls to scrape restaurant data, which was then stored in an SQL database for analytics.</p>
-<a href="{{ url_for('health_scores') }}"> Health Scores Project </a>
+<h2> Los Angeles Health Scores </h2>
+<p> In the <a href="{{ url_for('health_scores') }}"> Health Score Project</a>, I used the Yelp API with Asynchronous calls to scrape restaurant data, which was then stored in an SQL database for analytics. 
+    The main difficulty was rate limiting myself and dealing with the low daily limit of API calls.</p>
 
-<h2> MNIST Classifier</h2>
-<p> This project, I wanted to use ML-Engine and Tensorflow. I got to learn Tensorflow Estimators, which greatly improve the readability and speed of writing TF.
+<h2> Interactive MNIST Classifier</h2>
+<p> In the  <a href="{{ url_for('digits') }}"> MNIST project</a>, I wanted to use ML-Engine, Services, and Tensorflow. I got to learn Estimators, which greatly improve the readability and speed of writing TF.
     I had to modify the MNIST tutorial in order to save the model and feed prediction inputs, but other than that the model is mostly the same as the tutorial. </p>
-<a href="{{ url_for('digits') }}"> MNIST Classifier</a>
 
-<h3> More to come...</h3>
-I will have a few more tensorflow projects upcoming.
+<h2> Flask Site </h2>
+<p>This is a Python Flask site hosted on Google Cloud App Engine. I am using Bootstrap for the frontend. 
+   Flask is awesome, but designing with HTML and CSS is a pain! </p>
 
+<h2> What's Next? </h2>
+<p> I want to create a Flask API to do something basic and migrate the site to use Kubernetes.</p>
+
+<h2> Source Code</h2>
+<p> All code can be found on my <a href="https://github.com/aasams258"> Github </a>. </p>
 {% endblock %}

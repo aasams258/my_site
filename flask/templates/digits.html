@@ -16,7 +16,8 @@
   <br>
   <p> This project uses a Convolutional Neural Network (CNN) programmed in Tensorflow to identify a user drawn digit.</p>
   <p> To try it, draw a numeral from <b>0-9</b> in the box below and click submit. </p>
-  <p> Please be patient as the first input will take some time (~30s) as the machine learning server needs to spin up.</p>
+  <p> Please be patient as the first input will take some time (~30s-1m) as the machine learning server needs to spin up.
+      Subsequent entries are very quick, so feel free to read on while you wait. </p>
 
   <div class="text-center">
     <div id="container">
@@ -38,12 +39,12 @@
     </table>
   <h2> The Model </h2>
 
-  <p> The model is from the Tensorflow MNIST tutorial. It consists of two sets of convolutions with ReLU activation and max pooling,
+  <p> The model is from the Tensorflow MNIST tutorial. It consists of two layers of convolutions with ReLU activation and max pooling,
     a fully connected layer with dropout, then a logits layer for the 10 possible output classes.</p>
   <img src="static/img/digits_project/mnist_cnn.png" width="420" height="140" class="mx-auto d-block">
   <p> It was trained on batches of 100 images for 20,000 iterations taking about 1 hour, resulting in a 97% accuracy. </p>
-  <p> When first tested with my own hand drawn images the accuracy was very poor. It was particulary bad at guessing <i> 7's </i> and <i> 1's </i>. 
-      This sounded like a domain adapaton problem: the input from canvas tool did not look close enough to the training data.
+  <p> When first tested with my own hand drawn images the accuracy was very poor. It was particularly bad at guessing <i> 7's </i> and <i> 1's </i>. 
+      This sounded like a domain adaptation problem: the input from canvas tool did not look close enough to the training data.
   </p>
   <p> The training data consisted of centered digits. To be consistent the drawn images needed preprocessing. 
       The accuracy soared after identifying where to crop using a bounding box, padding with extra white space to help preserve the aspect ratio,

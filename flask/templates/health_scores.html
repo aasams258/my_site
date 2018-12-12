@@ -10,9 +10,12 @@
 
 {% block content %}
   <h1>Los Angeles Health Scores Analysis</h1>
+  <p> All restaurants by law display a what is basically a <i>cleanliness report card</i> in their window. 
+      Typically you will see A's, some B's, and the occasional C. But have you ever wondered if these grades
+      have had any effect on their business? </p>
 
-  <p> In this project I combine <b>Los Angeles County's Department of Public Health</b> restaurant inspections dataset
-      with <b>Yelp's</b> page listing. I aim to see if there are any correlations between the health score and quality
+  <p> In this project I combine <b> Los Angeles County's Department of Public Health </b> restaurant inspections dataset
+      with <b> Yelp's </b> page listing. I aim to see if there are any correlations between the health inspection score and quality
       of a restaurant in terms of reviews and price.</p>
 
   <h2> The Data </h2>
@@ -24,13 +27,9 @@
       I assumed franchises would have stringent policies to ensure high scores to protect brand image (this assumption can be investigated at a later date).
       Hopefully this makes the data more interesting, diverse, and reflective of the places I like to eat. </p>
 
-  <p> The final dataset contains approximately 16,000 restaurants across all zip codes in LA county.</p>
-  <h2> Health Scores and Grades </h2>
-
-  <p> The health grade distribution shows that A grades are the majority, with B taking about 1/5th of the share, and C's being rare at 2%. </p>
-  <img src="static/img/health_project/grade_pie_chart.png" width="300" height="300" class="mx-auto d-block">
-
-  <h3> How Grading Works </h3>
+  <p> The final dataset contains details of approximately 16,000 restaurants across all zip codes in LA county.</p>
+    
+  <h2> How Health Scores Work </h2>
   <p> A facility starts with a score of 100 points and for each code violation loses points.</p>
   <p> For instance if a facility does not change the lining in a bread basket between customers, that is a <span style="color: #ffa500"> MINOR </span> infraction worth 2 points</p>
   <p> If a facility serves ground beef with over 30% fat content that is a <span style="color: #ff0000"> MAJOR </span> infraction worth 4 points.</p>
@@ -43,18 +42,23 @@
   </ul>
   <p> A restaurant scoring under 70 twice within 12 months is subject to closure, and any major infractions may require closure - regardless of score.</p>
   
-  <h3> Score Distribution </h3>
+  <h2> Grade Distribution </h2>
+  <p> The health grade distribution of 16,000 restaurants shows that A grades are the majority, with B taking about a fifth of the share, and C's being rare at 2%.
+      This seems to pass the gut check, as I can't remember the last time I saw a C grade restaurant. </p>
+  <img src="static/img/health_project/grade_pie_chart.png" width="300" height="300" class="mx-auto d-block">
+
+  <h2> Score Distribution </h2>
   <img src="static/img/health_project/health_score_barplot.png" width="800" height="400" class="mx-auto d-block">
   <p> Instead of a single bell curve, the score distribution looks tri-modal with peaks occurring around 97, 85, and 76, each having a slight right-skew and an edge peak.
       Perhaps the multi-modality reflects that there are different types of restaurant owners, each with different views on acceptable sanitation. </p>
 
   <!-- Note to self: Maybe plot QQ Probability/ Normality Test? -->
   <p> The edge peak boundaries between grades are curious, look at the large differences between 90-89 and 80-79.
-      It seems like inspectors are using their discretion to push borderline cases to the next highest grade.</p>
+      It seems like inspectors are lenient and using their discretion to push borderline cases to the next highest grade.</p>
 
   <p> Also values under 70 are rare, there is only one occurrence (at 65). 
       This is likely due to the threat of closure leading restaurants to request a re-inspection if they did poorly.
-      My data only includes the most recent inspection, but after looking through the unedited dataset there are only around 5 cases of below 70.</p>
+      My data only includes the most recent inspection in the series, but after looking through the unedited dataset there are only around 5 cases of below 70.</p>
   
   <h2> Do health scores correlate to higher Yelp reviews? </h2>
   <img src="static/img/health_project/avg_yelp_v_health_scores.png" width="800" height="500" class="mx-auto d-block">
@@ -73,7 +77,7 @@
 
   <h2>Health Score and Popularity</h2>
   <p> Yelp's API offers no metric for popularity, but we can look at the number of customer reviews as a proxy for popularity.
-      Perhaps people see the health grade and avoid coming to less sanitary scoring establishments.
+      Perhaps people see the health grade and avoid coming to less cleanly establishments.
   </p>
   <img src="static/img/health_project/review_vs_heatlh.png" width="800" height="400" class="mx-auto d-block">
   <p> Without the regression line, it's hard to notice the downward trend. The correlation coefficient is low,
@@ -99,9 +103,11 @@
   <p> In the end it is the detail oriented restaurateur who strives to deliver a perfect experience that would have a high scoring A Grade,
   not the A Grade that makes the great dining experience.</p> 
 
-  <footer>
-        <i>Sources: </i>
-        <br> <i>Public Health Data </i>http://publichealth.lacounty.gov/eh/misc/ehpost.htm
-        <br> <i>Yelp.com</i>
-  </footer>
+  <h2> Sources: </h2>
+  <ul>
+    <li> <i> Code </i> https://github.com/aasams258/healthscore_visualization </li> 
+    <li><i> Public Health Data </i> http://publichealth.lacounty.gov/eh/misc/ehpost.htm</li>
+    <li> <i> Yelp.com </i> </li>
+  </ul>
+
 {% endblock %}
