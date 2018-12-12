@@ -50,7 +50,6 @@ def digits():
         expansion_coef = (-20,-20,20,20)
         enlarged_boundary = [sum(x) for x in zip(bounding_box, expansion_coef )]
         im = im.crop(enlarged_boundary)
-
         im = im.resize((28,28), Image.ANTIALIAS)
 
         # For visualizing the crop and rescale.
