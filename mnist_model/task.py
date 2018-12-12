@@ -5,11 +5,15 @@ from __future__ import print_function
 import numpy as np
 import tensorflow as tf
 
-#Restart from https://github.com/tensorflow/models/blob/master/official/mnist/mnist.py
-tf.logging.set_verbosity(tf.logging.INFO)
+# Modified from:
+# https://github.com/tensorflow/models/blob/master/official/mnist/mnist.py
 # https://github.com/tensorflow/tensorflow/blob/r1.1/tensorflow/examples/tutorials/layers/cnn_mnist.py
+tf.logging.set_verbosity(tf.logging.INFO)
+
+"""
+Model function for CNN.
+"""
 def cnn_model_fn(features, labels, mode):
-  """Model function for CNN."""
   # Input Layer
   input_layer = tf.reshape(features["x"], [-1, 28, 28, 1])
 
@@ -22,8 +26,8 @@ def cnn_model_fn(features, labels, mode):
       activation=tf.nn.relu) # output size is batch x28x28x32
 
   # Pooling Layer #1, reduce height, width by 50%
+  # Outputs batchx14x14x32
   pool1 = tf.layers.max_pooling2d(inputs=conv1, pool_size=[2, 2], strides=2) 
-  # Should output batchx14x14x32
 
   # Convolutional Layer #2 and Pooling Layer #2
   conv2 = tf.layers.conv2d(
@@ -36,19 +40,18 @@ def cnn_model_fn(features, labels, mode):
 
     
   # Dense Layer
-  pool2_flat = tf.reshape(pool2, [-1, 7 * 7 * 64]) # Flatten to batch x 7x7x64 (one image + channels)
+  pool2_flat = tf.reshape(pool2, [-1, 7 * 7 * 64]) # Flatten to batchx7x7x64 (one image + channels)
   dense = tf.layers.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu) # FC layer of batch x 1024 nodes
   dropout = tf.layers.dropout(
-      inputs=dense, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN) #40% dropout on FC. Only done in train mode
+      inputs=dense, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN) # 40% dropout on FC. Only done in train mode
 
   # Logits Layer
-  logits = tf.layers.dense(inputs=dropout, units=10) # node size 10 for all possible outputs. batch x 10 output.
+  logits = tf.layers.dense(inputs=dropout, units=10) # Node size 10 for all possible outputs. batch x 10 output.
 
   predictions = {
       # Generate predictions (for PREDICT and EVAL mode)
       "classes": tf.argmax(input=logits, axis=1),
-      # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
-      # `logging_hook`.
+      # Add `softmax_tensor` to the graph. It is used for PREDICT and by the `logging_hook`.
       "probabilities": tf.nn.softmax(logits, name="softmax_tensor")
   }
 
@@ -117,7 +120,8 @@ def main(unused_argv):
   eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
   print(eval_results)
 
-  # Export the model.
+  # Export the model
+  # https://stackoverflow.com/questions/44460362/how-to-save-estimator-in-tensorflow-for-later-use
   image = tf.placeholder(tf.float32, [None, 28, 28])
   serve_input_fn = tf.estimator.export.build_raw_serving_input_receiver_fn({
       'x': image,
@@ -127,5 +131,3 @@ def main(unused_argv):
 if __name__ == "__main__":
   tf.app.run()
 
-  # For the output: https://stackoverflow.com/questions/44460362/how-to-save-estimator-in-tensorflow-for-later-use
-  # https://github.com/awslabs/amazon-sagemaker-examples/issues/273
