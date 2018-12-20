@@ -16,15 +16,15 @@
 
 <h2> Los Angeles Health Scores </h2>
 <p> In the <a href="{{ url_for('health_scores') }}"> Health Score Project</a>, I used the Yelp API with Asynchronous calls to scrape restaurant data, which was then stored in an SQL database for analytics. 
-    The main difficulty was rate limiting myself and dealing with the low daily limit of API calls.</p>
+    The main difficulty was dealing with Yelp's rate limiting and low API call allowance.</p>
 
 <h2> Interactive MNIST Classifier</h2>
-<p> In the  <a href="{{ url_for('digits') }}"> MNIST project</a>, I wanted to use ML-Engine, Services, and Tensorflow. I got to learn Estimators, which greatly improve the readability and speed of writing TF.
-    I had to modify the MNIST tutorial in order to save the model and feed prediction inputs, but other than that the model is mostly the same as the tutorial. </p>
+<p> In the  <a href="{{ url_for('digits') }}"> MNIST project</a>, I wanted to use ML Engine, Services, and Tensorflow. I got to learn Estimators, which greatly improve the readability and speed of writing TF.
+    While I did not invent the MNIST model, I had to modify it in order to make it usable for the web and ML Engine. </p>
 
 <h2> Flask Site </h2>
-<p>This is a Python Flask site hosted on Google Cloud App Engine. I am using Bootstrap for the frontend. 
-   Flask is awesome, but designing with HTML and CSS is a pain! </p>
+<p> This is a Python Flask site hosted on Google Cloud App Engine. I am using Bootstrap for the frontend. 
+   Flask is awesome, but working with HTML and CSS is a pure pain. </p>
 
 <h2> What's Next? </h2>
 <p> I want to create a Flask API to do something basic and migrate the site to use Kubernetes.</p>

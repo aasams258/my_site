@@ -3,7 +3,7 @@
       display: none;
   }
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 800px) {
     /* show everything with the hamburger class */
     /* hide all the nav-buttons */
     .mobile-only {
@@ -11,8 +11,16 @@
     }
   }
 
+  html {
+     overflow: auto;
+     
+  }
+
   body {
     font-size: .875rem;
+    width: 100%;
+    height: 100%;
+    margin: 0;
   }
   
   .feather {
@@ -38,8 +46,8 @@
       text-align: center;
   }
 
-  .sidebar .bio .singlespaced {
-    line-height: 10%;
+  .sidebar .bio .singlespaced p{
+    margin-bottom: 0;
   }
 
   .sidebar {
